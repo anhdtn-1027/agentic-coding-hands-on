@@ -1,0 +1,79 @@
+{
+  "locale": {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "ja": "日本語"
+  },
+  "login": {
+    "welcomeLine1": "SAA 2025 であなたの旅を始めましょう。",
+    "welcomeLine2": "ログインして探索しよう！",
+    "googleButton": "Googleでログイン"
+  },
+  "header": {
+    "nav": {
+      "aboutSaa": "SAA について",
+      "awardsInfo": "アワード情報",
+      "sunKudos": "Sun* Kudos"
+    },
+    "account": {
+      "profile": "プロフィール",
+      "signOut": "サインアウト",
+      "adminDashboard": "管理ダッシュボード"
+    },
+    "notifications": "通知"
+  },
+  "footer": {
+    "copyright": "Bản quyền thuộc về Sun* © 2025",
+    "links": {
+      "aboutSaa": "SAA について",
+      "awardsInfo": "アワード情報",
+      "sunKudos": "Sun* Kudos"
+    }
+  },
+  "homepage": {
+    "comingSoon": "近日公開",
+    "days": "日",
+    "hours": "時間",
+    "minutes": "分",
+    "seconds": "秒",
+    "eventTime": "18:30",
+    "eventLocation": "ハノイ、ベトナム",
+    "eventNote": "日時と場所は変更になる場合があります",
+    "aboutAwards": "アワードについて",
+    "aboutKudos": "Kudos について",
+    "awardsCaption": "SAA 2025 — 優れた個人を称えて",
+    "awardsTitle": "Sun* Annual Awards 2025",
+    "awards": {
+      "starOfTheYear": {
+        "title": "年間最優秀スター",
+        "description": "その年に最も顕著な貢献をした個人に授与されます"
+      },
+      "bestLeader": {
+        "title": "最優秀リーダー",
+        "description": "卓越したリーダーシップでチームを率い、インスピレーションを与えた人物に授与されます"
+      },
+      "riseOfTheYear": {
+        "title": "ライジングスター",
+        "description": "高い成長ポテンシャルを持つ新進気鋭の個人に授与されます"
+      },
+      "bestTeam": {
+        "title": "最優秀チーム",
+        "description": "最高の効果と団結力を持つチームに授与されます"
+      },
+      "innovationAward": {
+        "title": "イノベーション賞",
+        "description": "最も印象的なイニシアチブや革新的なソリューションに授与されます"
+      },
+      "customerChampion": {
+        "title": "カスタマーチャンピオン",
+        "description": "顧客価値の提供に顕著な貢献をした個人に授与されます"
+      }
+    },
+    "kudos": {
+      "label": "Sun* Kudos",
+      "title": "同僚を称える",
+      "description": "同僚への称賛と感謝を送りましょう",
+      "detail": "Kudos は、日常業務で同僚への感謝と敬意をシンプルに表す方法です。"
+    }
+  }
+}

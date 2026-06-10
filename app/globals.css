@@ -10,6 +10,52 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* -------------------------------------------------------------------------
+   * SAA 2025 Design Tokens — sourced from MoMorph Figma (fileKey 9ypp4enmFmdK3YAFJLIu6C)
+   * Login screen: GzbNeVGJHz  |  Homepage: i87tDx10uM  |  Lang dropdown: hUyaaugye2
+   * -------------------------------------------------------------------------
+   * Background / surface colours
+   */
+  --color-saa-bg:            #00101A; /* rgba(0,16,26,1)   — primary dark background */
+  --color-saa-header-bg:     rgba(11, 15, 18, 0.8);  /* header bar (login) */
+  --color-saa-header-bg-hp:  rgba(16, 20, 23, 0.8);  /* header bar (homepage) */
+  --color-saa-surface:       #0B0F12; /* solid fallback for header surfaces */
+
+  /* Accent / brand */
+  --color-saa-yellow:        #FFEA9E; /* rgba(255,234,158,1) — primary CTA / selected state */
+  --color-saa-yellow-dark:   #998C5F; /* border accent (account button outline) */
+
+  /* Text */
+  --color-saa-text-primary:  #FFFFFF; /* rgba(255,255,255,1) */
+  --color-saa-text-on-cta:   #00101A; /* text on yellow button */
+
+  /* Borders / dividers */
+  --color-saa-divider:       #2E3940; /* footer top border */
+  --color-saa-border:        #998C5F; /* account icon button border */
+
+  /* Status */
+  --color-saa-notification:  #D4271D; /* rgba(212,39,29,1) — notification badge */
+
+  /* Border radii */
+  --radius-saa-btn:          8px;  /* CTA button (login) */
+  --radius-saa-btn-sm:       4px;  /* nav / icon buttons */
+  --radius-saa-badge:        100px; /* notification dot */
+
+  /* Typography — primary brand font */
+  --font-saa-brand:          "Montserrat", sans-serif;
+  --font-saa-alt:            "Montserrat Alternates", sans-serif;
+
+  /* Font sizes (rem equivalents of Figma px values at 16px base) */
+  --text-saa-nav:            1rem;    /* 16px — nav links */
+  --text-saa-body:           1.25rem; /* 20px — welcome body copy */
+  --text-saa-cta:            1.375rem;/* 22px — CTA button label */
+
+  /* Spacing */
+  --spacing-saa-header-px:   144px;  /* horizontal header padding */
+  --spacing-saa-header-py:   12px;   /* vertical header padding */
+  --spacing-saa-section-px:  144px;  /* section horizontal padding */
+  --spacing-saa-section-py:  96px;   /* section vertical padding */
 }
 
 @media (prefers-color-scheme: dark) {

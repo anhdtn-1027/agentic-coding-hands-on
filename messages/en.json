@@ -1,0 +1,79 @@
+{
+  "locale": {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "ja": "日本語"
+  },
+  "login": {
+    "welcomeLine1": "Begin your journey with SAA 2025.",
+    "welcomeLine2": "Sign in to explore!",
+    "googleButton": "LOGIN With Google"
+  },
+  "header": {
+    "nav": {
+      "aboutSaa": "About SAA",
+      "awardsInfo": "Awards Information",
+      "sunKudos": "Sun* Kudos"
+    },
+    "account": {
+      "profile": "Profile",
+      "signOut": "Sign Out",
+      "adminDashboard": "Admin Dashboard"
+    },
+    "notifications": "Notifications"
+  },
+  "footer": {
+    "copyright": "Bản quyền thuộc về Sun* © 2025",
+    "links": {
+      "aboutSaa": "About SAA",
+      "awardsInfo": "Awards Information",
+      "sunKudos": "Sun* Kudos"
+    }
+  },
+  "homepage": {
+    "comingSoon": "Coming Soon",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "eventTime": "18:30",
+    "eventLocation": "Hanoi, Vietnam",
+    "eventNote": "Time and location are subject to change",
+    "aboutAwards": "About Awards",
+    "aboutKudos": "About Kudos",
+    "awardsCaption": "SAA 2025 — Honoring outstanding individuals",
+    "awardsTitle": "Sun* Annual Awards 2025",
+    "awards": {
+      "starOfTheYear": {
+        "title": "Star of the Year",
+        "description": "Awarded to the individual with the most outstanding contribution of the year"
+      },
+      "bestLeader": {
+        "title": "Best Leader",
+        "description": "Awarded to the person who leads and inspires their team with excellence"
+      },
+      "riseOfTheYear": {
+        "title": "Rising Star",
+        "description": "Awarded to a standout newcomer with high growth potential"
+      },
+      "bestTeam": {
+        "title": "Best Team",
+        "description": "Awarded to the team with the highest effectiveness and team spirit"
+      },
+      "innovationAward": {
+        "title": "Innovation Award",
+        "description": "Awarded for the most impressive initiative or innovative solution"
+      },
+      "customerChampion": {
+        "title": "Customer Champion",
+        "description": "Awarded to the individual with outstanding contributions to delivering customer value"
+      }
+    },
+    "kudos": {
+      "label": "Sun* Kudos",
+      "title": "Recognize a Colleague",
+      "description": "Send praise and recognition to your colleagues",
+      "detail": "Kudos is a simple way to express gratitude and appreciation for your colleagues in daily work."
+    }
+  }
+}
