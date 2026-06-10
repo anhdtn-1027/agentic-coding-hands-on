@@ -40,9 +40,12 @@ export function SiteFooter({ variant }: SiteFooterProps) {
 
   return (
     <footer
-      className="w-full flex flex-row items-center justify-between"
+      className="w-full flex flex-row items-center justify-between flex-wrap"
       style={{
-        padding: "40px 90px",
+        // Responsive side padding (design 90px) + wrap so logo/nav/copyright
+        // stack instead of forcing horizontal scroll on smaller viewports.
+        padding: "40px clamp(16px, 6.25vw, 90px)",
+        rowGap: "24px",
         borderTop: "1px solid #2E3940",
       }}
     >
@@ -131,9 +134,9 @@ export function SiteFooter({ variant }: SiteFooterProps) {
               >
                 {t("links.sunKudos")}
               </Link>
-              {/* mm:I5001:14800;1161:9487 — 4th footer link (About SAA repeated) */}
+              {/* mm:I5001:14800;1161:9487 — 4th footer link "Tiêu chuẩn chung" (spec 7.5) */}
               <Link
-                href="/"
+                href="#"
                 style={{
                   padding: "16px",
                   fontFamily: "Montserrat, sans-serif",
@@ -146,7 +149,7 @@ export function SiteFooter({ variant }: SiteFooterProps) {
                   whiteSpace: "nowrap",
                 }}
               >
-                {t("links.aboutSaa")}
+                {t("links.generalStandards")}
               </Link>
             </nav>
           </div>
