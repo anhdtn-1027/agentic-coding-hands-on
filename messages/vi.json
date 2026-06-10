@@ -1,0 +1,79 @@
+{
+  "locale": {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "ja": "日本語"
+  },
+  "login": {
+    "welcomeLine1": "Bắt đầu hành trình của bạn cùng SAA 2025.",
+    "welcomeLine2": "Đăng nhập để khám phá!",
+    "googleButton": "LOGIN With Google"
+  },
+  "header": {
+    "nav": {
+      "aboutSaa": "Về SAA",
+      "awardsInfo": "Thông tin Giải thưởng",
+      "sunKudos": "Sun* Kudos"
+    },
+    "account": {
+      "profile": "Hồ sơ",
+      "signOut": "Đăng xuất",
+      "adminDashboard": "Trang quản trị"
+    },
+    "notifications": "Thông báo"
+  },
+  "footer": {
+    "copyright": "Bản quyền thuộc về Sun* © 2025",
+    "links": {
+      "aboutSaa": "Về SAA",
+      "awardsInfo": "Thông tin Giải thưởng",
+      "sunKudos": "Sun* Kudos"
+    }
+  },
+  "homepage": {
+    "comingSoon": "Sắp ra mắt",
+    "days": "Ngày",
+    "hours": "Giờ",
+    "minutes": "Phút",
+    "seconds": "Giây",
+    "eventTime": "18:30",
+    "eventLocation": "Hà Nội, Việt Nam",
+    "eventNote": "Thời gian và địa điểm có thể thay đổi",
+    "aboutAwards": "Về Giải thưởng",
+    "aboutKudos": "Về Kudos",
+    "awardsCaption": "SAA 2025 — Vinh danh những cá nhân xuất sắc",
+    "awardsTitle": "Sun* Annual Awards 2025",
+    "awards": {
+      "starOfTheYear": {
+        "title": "Ngôi sao của năm",
+        "description": "Trao cho cá nhân có đóng góp nổi bật nhất trong năm"
+      },
+      "bestLeader": {
+        "title": "Lãnh đạo xuất sắc",
+        "description": "Trao cho người có khả năng lãnh đạo, truyền cảm hứng cho đội nhóm"
+      },
+      "riseOfTheYear": {
+        "title": "Ngôi sao đang lên",
+        "description": "Trao cho cá nhân mới nổi có nhiều tiềm năng phát triển"
+      },
+      "bestTeam": {
+        "title": "Đội nhóm xuất sắc",
+        "description": "Trao cho đội nhóm có hiệu quả làm việc và tinh thần đoàn kết cao"
+      },
+      "innovationAward": {
+        "title": "Giải thưởng Sáng tạo",
+        "description": "Trao cho sáng kiến hoặc giải pháp đổi mới ấn tượng nhất"
+      },
+      "customerChampion": {
+        "title": "Nhà vô địch khách hàng",
+        "description": "Trao cho cá nhân có đóng góp xuất sắc trong việc mang lại giá trị cho khách hàng"
+      }
+    },
+    "kudos": {
+      "label": "Sun* Kudos",
+      "title": "Ghi nhận đồng nghiệp",
+      "description": "Hãy gửi lời khen ngợi và ghi nhận đồng nghiệp của bạn",
+      "detail": "Kudos là cách đơn giản để bạn bày tỏ sự biết ơn và trân trọng đồng nghiệp trong công việc hàng ngày."
+    }
+  }
+}
