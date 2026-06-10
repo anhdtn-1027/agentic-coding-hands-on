@@ -8,30 +8,40 @@ import { useTranslations } from "next-intl";
 import { AwardCard } from "./award-card";
 
 interface AwardsGridProps {
-  /** Override hrefs for each card. Order: starOfTheYear, bestLeader, riseOfTheYear, bestTeam, innovationAward, customerChampion */
+  /** Override hrefs for each card. Order: topTalent, topProject, topProjectLeader, bestManager, signatureCreator, mvp */
   cardHrefs?: [string, string, string, string, string, string];
 }
 
-// Visual-only metadata (images, dimensions) — text comes from i18n
+// Visual-only metadata (images, dimensions, anchor slug) — text comes from i18n.
+// Award names/order match Figma assets + specs C2.1–C2.6 (mm:5005:14974).
 const AWARD_VISUALS = [
-  { key: "starOfTheYear", awardNameSrc: "/homepage/top-talent.png", awardNameAlt: "Star of the Year", awardNameWidth: 221, awardNameHeight: 35 },
-  { key: "bestLeader", awardNameSrc: "/homepage/top-project.png", awardNameAlt: "Best Leader", awardNameWidth: 232, awardNameHeight: 35 },
-  { key: "riseOfTheYear", awardNameSrc: "/homepage/top-project-leader.png", awardNameAlt: "Rise of the Year", awardNameWidth: 232, awardNameHeight: 64 },
-  { key: "bestTeam", awardNameSrc: "/homepage/best-manager.png", awardNameAlt: "Best Team", awardNameWidth: 232, awardNameHeight: 30 },
-  { key: "innovationAward", awardNameSrc: "/homepage/signature-2025-creator.png", awardNameAlt: "Innovation Award", awardNameWidth: 232, awardNameHeight: 54 },
-  { key: "customerChampion", awardNameSrc: "/homepage/mvp.png", awardNameAlt: "Customer Champion", awardNameWidth: 116, awardNameHeight: 52 },
+  { key: "topTalent", slug: "top-talent", awardNameSrc: "/homepage/top-talent.png", awardNameAlt: "Top Talent", awardNameWidth: 221, awardNameHeight: 35 },
+  { key: "topProject", slug: "top-project", awardNameSrc: "/homepage/top-project.png", awardNameAlt: "Top Project", awardNameWidth: 232, awardNameHeight: 35 },
+  { key: "topProjectLeader", slug: "top-project-leader", awardNameSrc: "/homepage/top-project-leader.png", awardNameAlt: "Top Project Leader", awardNameWidth: 232, awardNameHeight: 64 },
+  { key: "bestManager", slug: "best-manager", awardNameSrc: "/homepage/best-manager.png", awardNameAlt: "Best Manager", awardNameWidth: 232, awardNameHeight: 30 },
+  { key: "signatureCreator", slug: "signature-2025-creator", awardNameSrc: "/homepage/signature-2025-creator.png", awardNameAlt: "Signature 2025 - Creator", awardNameWidth: 232, awardNameHeight: 54 },
+  { key: "mvp", slug: "mvp", awardNameSrc: "/homepage/mvp.png", awardNameAlt: "MVP (Most Valuable Person)", awardNameWidth: 116, awardNameHeight: 52 },
 ] as const;
 
-const DEFAULT_HREFS: [string, string, string, string, string, string] = [
-  "#", "#", "#", "#", "#", "#",
-];
+// Each card links to Awards Information with a category hash anchor (specs C2 / TC ID-47..52)
+const DEFAULT_HREFS = AWARD_VISUALS.map(
+  (a) => `/awards-information#${a.slug}`,
+) as unknown as [string, string, string, string, string, string];
 
 export function AwardsGrid({ cardHrefs = DEFAULT_HREFS }: AwardsGridProps) {
   const t = useTranslations("homepage");
 
   return (
-    // mm:2167:9068
-    <div className="flex flex-col w-full" style={{ gap: 80 }}>
+    // mm:2167:9068 — centered content container, 144px side gutter on desktop
+    // (matches hero/root-further; design content width 1152 within 1440 frame)
+    <div
+      className="flex flex-col w-full mx-auto"
+      style={{
+        gap: 80,
+        maxWidth: 1152,
+        paddingInline: 24,
+      }}
+    >
       {/* mm:2167:9069 — C1 section header */}
       <div className="flex flex-col" style={{ gap: 16 }}>
         {/* mm:2167:9070 — caption */}
@@ -75,13 +85,11 @@ export function AwardsGrid({ cardHrefs = DEFAULT_HREFS }: AwardsGridProps) {
         </div>
       </div>
 
-      {/* mm:5005:14974 — C2 award card grid: responsive 1→2→3 col */}
+      {/* mm:5005:14974 — C2 award card grid: 2-col tablet/mobile, 3-col desktop
+          (spec C2 + TC ID-15/16) */}
       <div
-        className="grid w-full"
-        style={{
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: 40,
-        }}
+        className="grid w-full grid-cols-2 lg:grid-cols-3"
+        style={{ gap: 40 }}
       >
         {AWARD_VISUALS.map((award, i) => (
           // mm:2167:9075 pattern — each card
@@ -94,6 +102,7 @@ export function AwardsGrid({ cardHrefs = DEFAULT_HREFS }: AwardsGridProps) {
             awardNameHeight={award.awardNameHeight}
             title={t(`awards.${award.key}.title`)}
             description={t(`awards.${award.key}.description`)}
+            detailLabel={t("detailLink")}
             href={cardHrefs[i as 0 | 1 | 2 | 3 | 4 | 5]}
           />
         ))}

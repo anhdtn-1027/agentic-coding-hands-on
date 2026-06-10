@@ -29,9 +29,14 @@ export default auth(function middleware(req: NextRequest) {
   const isLoginPage =
     pathname === "/login" || /^\/(?:en|ja)\/login$/.test(pathname);
 
+  // Homepage is public (TC ID-0: unauthenticated users see public content).
+  // Matches "/" (vi default no-prefix) and "/en" /"/ja".
+  const isHomePage = pathname === "/" || /^\/(?:en|ja)$/.test(pathname);
+
   // Public paths that never require auth
   const isPublic =
     isLoginPage ||
+    isHomePage ||
     pathname.startsWith("/api/auth") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/_vercel");

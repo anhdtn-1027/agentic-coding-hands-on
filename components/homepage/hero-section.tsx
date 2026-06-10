@@ -47,27 +47,11 @@ export function HeroSection({
   aboutKudosLabel = "ABOUT KUDOS",
 }: HeroSectionProps) {
   return (
-    // mm:2167:9026 outer — full-bleed hero wrapper
-    <div className="relative w-full" style={{ minHeight: "100vh" }}>
-      {/* mm:2167:9027 — keyvisual background group */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
-        {/* mm:2167:9028 — MM_MEDIA_Keyvisual BG */}
-        <Image
-          src="/homepage/keyvisual-bg.png"
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-      </div>
-
-      {/* mm:2167:9029 — dark cover overlay */}
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{ background: "rgba(0,0,0,0.55)" }}
-      />
-
+    // mm:2167:9026 outer — hero content wrapper.
+    // NOTE: keyvisual background (2167:9027) + gradient cover (2167:9029) are
+    // page-level layers in homepage-client — in Figma they span the hero AND the
+    // "ROOT FURTHER" intro (keyvisual 1512×1392), so they must NOT be clipped here.
+    <div className="relative w-full">
       {/* mm:2167:9030 — Bìa content frame */}
       <div
         className="relative z-10 flex flex-col items-center"

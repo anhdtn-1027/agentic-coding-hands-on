@@ -3,6 +3,7 @@
 // Client component: uses countdown hook (client-side timer) and wires
 // all homepage body sections with i18n strings + real props.
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCountdown } from "@/lib/use-countdown";
 import { SiteHeader } from "@/components/shared/site-header";
@@ -28,9 +29,37 @@ export function HomepageClient({
 
   return (
     <div
-      className="flex flex-col min-h-screen"
+      className="relative flex flex-col min-h-screen"
       style={{ background: "#00101A" }}
     >
+      {/* mm:2167:9027 + 2167:9029 — page-level keyvisual background + gradient cover.
+          Spans hero + "ROOT FURTHER" intro (Figma keyvisual 1512×1392), fading to
+          #00101A right as the body paragraph begins. Lives here (not in HeroSection)
+          so it is not clipped at the hero boundary. */}
+      <div
+        aria-hidden
+        className="absolute top-0 left-0 w-full overflow-hidden pointer-events-none"
+        style={{ height: "calc(100vh + 480px)", zIndex: 0 }}
+      >
+        {/* mm:2167:9028 — MM_MEDIA_Keyvisual BG */}
+        <Image
+          src="/homepage/keyvisual-bg.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* mm:2167:9029 — Cover gradient (fades keyvisual to #00101A toward the body) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(12deg, #00101A 23.7%, rgba(0, 18, 29, 0.46) 38.34%, rgba(0, 19, 32, 0.00) 48.92%)",
+          }}
+        />
+      </div>
+
       {/* Shared chrome — home variant */}
       <SiteHeader
         variant="home"
@@ -39,7 +68,7 @@ export function HomepageClient({
         userName={userName}
       />
 
-      <main className="flex-1 flex flex-col">
+      <main className="relative z-10 flex-1 flex flex-col">
         {/* Section B — Hero (keyvisual bg + countdown + event info + CTA) */}
         <HeroSection
           days={days}

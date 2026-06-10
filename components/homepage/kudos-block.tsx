@@ -15,8 +15,11 @@ export function KudosBlock({
 }: KudosBlockProps) {
   const t = useTranslations("homepage.kudos");
   return (
-    // mm:3390:10349
-    <div className="flex flex-col items-center justify-center w-full" style={{ gap: 10 }}>
+    // mm:3390:10349 — side gutter so the 1120px card never touches screen edges
+    <div
+      className="flex flex-col items-center justify-center w-full"
+      style={{ gap: 10, paddingInline: 24 }}
+    >
       {/* mm:I3390:10349;313:8415 — SunKudos group */}
       <div
         className="relative"
@@ -121,7 +124,7 @@ export function KudosBlock({
                   color: "#00101A",
                 }}
               >
-                {t("description")}
+                {t("cta")}
               </span>
               {/* mm:I3390:10349;313:8426;186:1766 — arrow icon */}
               <svg

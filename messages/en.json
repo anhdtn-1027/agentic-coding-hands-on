@@ -27,7 +27,8 @@
     "links": {
       "aboutSaa": "About SAA",
       "awardsInfo": "Awards Information",
-      "sunKudos": "Sun* Kudos"
+      "sunKudos": "Sun* Kudos",
+      "generalStandards": "General Standards"
     }
   },
   "homepage": {
@@ -36,44 +37,45 @@
     "hours": "Hours",
     "minutes": "Minutes",
     "seconds": "Seconds",
-    "eventTime": "18:30",
-    "eventLocation": "Hanoi, Vietnam",
-    "eventNote": "Time and location are subject to change",
+    "eventTime": "26/12/2025",
+    "eventLocation": "Âu Cơ Art Center",
+    "eventNote": "Live broadcast via Livestream",
     "aboutAwards": "About Awards",
     "aboutKudos": "About Kudos",
-    "awardsCaption": "SAA 2025 — Honoring outstanding individuals",
-    "awardsTitle": "Sun* Annual Awards 2025",
+    "awardsCaption": "Sun* annual awards 2025",
+    "awardsTitle": "Awards System",
+    "detailLink": "Details",
     "awards": {
-      "starOfTheYear": {
-        "title": "Star of the Year",
-        "description": "Awarded to the individual with the most outstanding contribution of the year"
+      "topTalent": {
+        "title": "Top Talent",
+        "description": "Honoring the top individuals excelling in every aspect"
       },
-      "bestLeader": {
-        "title": "Best Leader",
-        "description": "Awarded to the person who leads and inspires their team with excellence"
+      "topProject": {
+        "title": "Top Project",
+        "description": "Honoring outstanding projects with notable revenue across all aspects"
       },
-      "riseOfTheYear": {
-        "title": "Rising Star",
-        "description": "Awarded to a standout newcomer with high growth potential"
+      "topProjectLeader": {
+        "title": "Top Project Leader",
+        "description": "Honoring managers who inspire and lead breakthrough projects"
       },
-      "bestTeam": {
-        "title": "Best Team",
-        "description": "Awarded to the team with the highest effectiveness and team spirit"
+      "bestManager": {
+        "title": "Best Manager",
+        "description": "Honoring managers with strong management skills who lead their teams well"
       },
-      "innovationAward": {
-        "title": "Innovation Award",
-        "description": "Awarded for the most impressive initiative or innovative solution"
+      "signatureCreator": {
+        "title": "Signature 2025 - Creator",
+        "description": "Honoring managers with strong management skills who lead their teams well"
       },
-      "customerChampion": {
-        "title": "Customer Champion",
-        "description": "Awarded to the individual with outstanding contributions to delivering customer value"
+      "mvp": {
+        "title": "MVP (Most Valuable Person)",
+        "description": "Honoring managers with strong management skills who lead their teams well"
       }
     },
     "kudos": {
-      "label": "Sun* Kudos",
-      "title": "Recognize a Colleague",
-      "description": "Send praise and recognition to your colleagues",
-      "detail": "Kudos is a simple way to express gratitude and appreciation for your colleagues in daily work."
+      "label": "Recognition Movement",
+      "title": "Sun* Kudos",
+      "detail": "WHAT'S NEW IN SAA 2025\nA colleague recognition and appreciation activity — held for the first time for all Sunners. Launching in November 2025, it encourages Sun* people to share words of recognition and thanks for colleagues on the system announced by the organizers. This will serve as reference material for the Heads Council during the award selection process.",
+      "cta": "Details"
     }
   }
 }

@@ -27,7 +27,8 @@
     "links": {
       "aboutSaa": "Về SAA",
       "awardsInfo": "Thông tin Giải thưởng",
-      "sunKudos": "Sun* Kudos"
+      "sunKudos": "Sun* Kudos",
+      "generalStandards": "Tiêu chuẩn chung"
     }
   },
   "homepage": {
@@ -36,44 +37,45 @@
     "hours": "Giờ",
     "minutes": "Phút",
     "seconds": "Giây",
-    "eventTime": "18:30",
-    "eventLocation": "Hà Nội, Việt Nam",
-    "eventNote": "Thời gian và địa điểm có thể thay đổi",
+    "eventTime": "26/12/2025",
+    "eventLocation": "Âu Cơ Art Center",
+    "eventNote": "Tường thuật trực tiếp qua sóng Livestream",
     "aboutAwards": "Về Giải thưởng",
     "aboutKudos": "Về Kudos",
-    "awardsCaption": "SAA 2025 — Vinh danh những cá nhân xuất sắc",
-    "awardsTitle": "Sun* Annual Awards 2025",
+    "awardsCaption": "Sun* annual awards 2025",
+    "awardsTitle": "Hệ thống giải thưởng",
+    "detailLink": "Chi tiết",
     "awards": {
-      "starOfTheYear": {
-        "title": "Ngôi sao của năm",
-        "description": "Trao cho cá nhân có đóng góp nổi bật nhất trong năm"
+      "topTalent": {
+        "title": "Top Talent",
+        "description": "Vinh danh top cá nhân xuất sắc trên mọi phương diện"
       },
-      "bestLeader": {
-        "title": "Lãnh đạo xuất sắc",
-        "description": "Trao cho người có khả năng lãnh đạo, truyền cảm hứng cho đội nhóm"
+      "topProject": {
+        "title": "Top Project",
+        "description": "Vinh danh dự án xuất sắc trên mọi phương diện, dự án có doanh thu nổi bật"
       },
-      "riseOfTheYear": {
-        "title": "Ngôi sao đang lên",
-        "description": "Trao cho cá nhân mới nổi có nhiều tiềm năng phát triển"
+      "topProjectLeader": {
+        "title": "Top Project Leader",
+        "description": "Vinh danh người quản lý truyền cảm hứng và dẫn dắt dự án bứt phá"
       },
-      "bestTeam": {
-        "title": "Đội nhóm xuất sắc",
-        "description": "Trao cho đội nhóm có hiệu quả làm việc và tinh thần đoàn kết cao"
+      "bestManager": {
+        "title": "Best Manager",
+        "description": "Vinh danh người quản lý có năng lực quản lý tốt, dẫn dắt đội nhóm"
       },
-      "innovationAward": {
-        "title": "Giải thưởng Sáng tạo",
-        "description": "Trao cho sáng kiến hoặc giải pháp đổi mới ấn tượng nhất"
+      "signatureCreator": {
+        "title": "Signature 2025 - Creator",
+        "description": "Vinh danh người quản lý có năng lực quản lý tốt, dẫn dắt đội nhóm"
       },
-      "customerChampion": {
-        "title": "Nhà vô địch khách hàng",
-        "description": "Trao cho cá nhân có đóng góp xuất sắc trong việc mang lại giá trị cho khách hàng"
+      "mvp": {
+        "title": "MVP (Most Valuable Person)",
+        "description": "Vinh danh người quản lý có năng lực quản lý tốt, dẫn dắt đội nhóm"
       }
     },
     "kudos": {
-      "label": "Sun* Kudos",
-      "title": "Ghi nhận đồng nghiệp",
-      "description": "Hãy gửi lời khen ngợi và ghi nhận đồng nghiệp của bạn",
-      "detail": "Kudos là cách đơn giản để bạn bày tỏ sự biết ơn và trân trọng đồng nghiệp trong công việc hàng ngày."
+      "label": "Phong trào ghi nhận",
+      "title": "Sun* Kudos",
+      "detail": "ĐIỂM MỚI CỦA SAA 2025\nHoạt động ghi nhận và cảm ơn đồng nghiệp - lần đầu tiên được diễn ra dành cho tất cả Sunner. Hoạt động sẽ được triển khai vào tháng 11/2025, khuyến khích người Sun* chia sẻ những lời ghi nhận, cảm ơn đồng nghiệp trên hệ thống do BTC công bố. Đây sẽ là chất liệu để Hội đồng Heads tham khảo trong quá trình lựa chọn người đạt giải.",
+      "cta": "Chi tiết"
     }
   }
 }

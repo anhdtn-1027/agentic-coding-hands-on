@@ -93,7 +93,9 @@ export function SiteHeader({
       className="sticky top-0 z-40 w-full flex flex-row items-center justify-between"
       style={{
         height: "80px",
-        padding: "12px 144px",
+        // Responsive side padding: 144px on desktop (design), shrinks on smaller
+        // viewports so the fixed-width nav/controls don't force horizontal scroll.
+        padding: "12px clamp(16px, 9.52vw, 144px)",
         backgroundColor: bgColor,
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
