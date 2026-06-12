@@ -79,8 +79,10 @@ export function SiteHeader({
   const t = useTranslations("header");
   const pathname = usePathname();
 
-  // Determine which nav link is active (simple path-based)
+  // Determine which nav link is active (simple path-based; pathname is locale-stripped)
   const isAboutSelected = pathname === "/" || pathname === "";
+  const isAwardsSelected = pathname.startsWith("/awards-information");
+  const isKudosSelected = pathname.startsWith("/sun-kudos");
 
   const bgColor =
     variant === "login"
@@ -129,9 +131,17 @@ export function SiteHeader({
               selected={isAboutSelected}
             />
             {/* Awards Information — hover state node (mm:I2167:9091;186:1587) */}
-            <NavLink href="/awards-information" label={t("nav.awardsInfo")} />
+            <NavLink
+              href="/awards-information"
+              label={t("nav.awardsInfo")}
+              selected={isAwardsSelected}
+            />
             {/* Sun* Kudos — normal state (mm:I2167:9091;186:1593) */}
-            <NavLink href="/sun-kudos" label={t("nav.sunKudos")} />
+            <NavLink
+              href="/sun-kudos"
+              label={t("nav.sunKudos")}
+              selected={isKudosSelected}
+            />
           </nav>
         )}
       </div>
