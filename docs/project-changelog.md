@@ -1,5 +1,37 @@
 # Project Changelog
 
+## [0.2.0] — 2026-06-12
+
+### Award System page (Hệ thống giải thưởng SAA 2025)
+
+Replaces the `/awards-information` placeholder with the full Award System screen
+(MoMorph screen `zFYDgyj_pD`). Authenticated, mostly-presentational page.
+
+#### Added
+
+- **Award System UI (`components/awards/`)**
+  - `award-hero.tsx` — keyvisual + "Hệ thống giải thưởng SAA 2025" title (specs 3, A)
+  - `award-nav.tsx` — sticky left nav, 6 categories, active = yellow + underline (specs C)
+  - `award-detail-block.tsx` — award block: badge image + title + description + qty + value;
+    `reverse` for alternating layout; Signature dual-value with "Hoặc" separator (specs D.1–D.6)
+  - `award-system-content.tsx` — orchestrates nav + 6 blocks + KudosBlock; IntersectionObserver
+    scroll-spy with scroll-lock on click; hash deep-link support; updates URL hash on select
+  - `award-icons.tsx` — shared Target/Diamond/License SVG icons (DRY)
+  - `award-data.ts` — static award catalogue (i18n keys + qty/value from design)
+- **i18n** — `awardSystem` namespace added to `messages/{vi,en,ja}.json` (34 keys each, full parity)
+
+#### Changed
+
+- `app/[locale]/awards-information/page.tsx` — placeholder → real page (Header + content + Footer)
+- `components/shared/site-header.tsx` — active-nav state for `/awards-information` and `/sun-kudos`
+
+#### Notes
+
+- Section slugs (`top-talent` … `mvp`) match homepage award-card deep-links — `#hash` links land correctly
+- Auth gate unchanged: `proxy.ts` already redirects unauthenticated users to `/login` (TC ID-0/1)
+- Responsive: left nav hidden on mobile/tablet, award blocks stack full-width
+- Tests: 15/15 MoMorph TCs pass, 24/24 unit tests green, `tsc`/`eslint` clean
+
 ## [0.1.0] — 2026-06-10
 
 ### Login + Homepage + Language Dropdown
