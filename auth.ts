@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
+import type { Provider } from "next-auth/providers";
 import Google from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
 
 function getAdminEmails(): string[] {
   return (process.env.ADMIN_EMAILS ?? "")
@@ -8,13 +10,42 @@ function getAdminEmails(): string[] {
     .filter(Boolean);
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+// Provider list. The Google provider is always present; a DEV-ONLY credentials
+// provider ("dev-login") is added when not in production so the app can be
+// exercised locally without real Google OAuth credentials. It NEVER ships to
+// production (guarded by NODE_ENV) and performs no password check by design —
+// it is a local testing affordance only.
+const providers: Provider[] = [
+  Google({
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  }),
+];
+
+if (process.env.NODE_ENV !== "production") {
+  providers.push(
+    Credentials({
+      id: "dev-login",
+      name: "Dev Login",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        name: { label: "Name", type: "text" },
+      },
+      authorize(creds) {
+        const email = typeof creds?.email === "string" ? creds.email.trim() : "";
+        if (!email) return null;
+        const name =
+          typeof creds?.name === "string" && creds.name.trim()
+            ? creds.name.trim()
+            : email.split("@")[0];
+        return { id: email, email, name };
+      },
     }),
-  ],
+  );
+}
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers,
 
   session: { strategy: "jwt" },
 

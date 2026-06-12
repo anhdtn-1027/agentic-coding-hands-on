@@ -8,7 +8,6 @@
 import { Suspense, useState, useTransition } from "react";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { SiteHeader } from "@/components/shared/site-header";
 import { SiteFooter } from "@/components/shared/site-footer";
@@ -21,10 +20,14 @@ import {
 // Next.js requires any component using useSearchParams to be wrapped in Suspense.
 function LoginContent() {
   const t = useTranslations("login");
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [devEmail, setDevEmail] = useState("dev@sun-asterisk.com");
+
+  // DEV-only login (no Google needed). Mirrors the auth.ts "dev-login" provider,
+  // which is itself only registered when NODE_ENV !== "production".
+  const isDev = process.env.NODE_ENV !== "production";
 
   // Read callbackUrl from query string (set by proxy.ts for post-login redirect).
   // Sanitize to same-origin relative path only — reject anything with a host (open-redirect guard).
@@ -38,14 +41,32 @@ function LoginContent() {
     setError(null);
     startTransition(async () => {
       try {
-        const result = await signIn("google", {
+        // Google is an OAuth provider — it requires a full-page redirect to the
+        // Google consent screen (NOT a popup, and NOT redirect:false which only
+        // suits the Credentials provider). next-auth navigates the browser to
+        // Google and, after auth, returns to `callbackUrl`.
+        await signIn("google", { callbackUrl: safeCallbackUrl });
+      } catch {
+        setError("An unexpected error occurred. Please try again.");
+      }
+    });
+  }
+
+  // DEV-only: Credentials provider completes server-side, so we DON'T redirect
+  // through a provider page — use redirect:false then navigate to callbackUrl.
+  async function handleDevSignIn() {
+    setError(null);
+    startTransition(async () => {
+      try {
+        const res = await signIn("dev-login", {
+          email: devEmail.trim() || "dev@sun-asterisk.com",
           redirect: false,
-          callbackUrl: safeCallbackUrl,
         });
-        if (result?.error) {
-          setError("Sign in failed. Please try again.");
-        } else if (result?.url) {
-          router.push(safeCallbackUrl);
+        if (res?.error) {
+          setError("Dev login failed.");
+        } else {
+          // Full navigation so the freshly set session cookie is picked up.
+          window.location.href = safeCallbackUrl;
         }
       } catch {
         setError("An unexpected error occurred. Please try again.");
@@ -87,6 +108,58 @@ function LoginContent() {
           </div>
         )}
       </main>
+
+      {/* DEV-ONLY login panel — bypasses Google for local testing. Never rendered
+          in production (process.env.NODE_ENV is inlined at build time). */}
+      {isDev && (
+        <div
+          className="fixed z-50 flex items-center gap-2"
+          style={{
+            left: 16,
+            bottom: 16,
+            padding: "10px 12px",
+            borderRadius: 8,
+            background: "rgba(0,0,0,0.65)",
+            border: "1px solid rgba(255,234,158,0.4)",
+            fontFamily: "Montserrat, sans-serif",
+          }}
+        >
+          <span style={{ color: "#FFEA9E", fontSize: 11, fontWeight: 700 }}>DEV</span>
+          <input
+            type="email"
+            value={devEmail}
+            onChange={(e) => setDevEmail(e.target.value)}
+            placeholder="email@dev.local"
+            aria-label="Dev login email"
+            style={{
+              padding: "6px 8px",
+              borderRadius: 4,
+              border: "1px solid #2E3940",
+              background: "#00101A",
+              color: "#FFFFFF",
+              fontSize: 13,
+              width: 200,
+            }}
+          />
+          <button
+            type="button"
+            onClick={handleDevSignIn}
+            disabled={isPending}
+            style={{
+              padding: "6px 12px",
+              borderRadius: 4,
+              background: "#FFEA9E",
+              color: "#00101A",
+              fontSize: 13,
+              fontWeight: 700,
+              cursor: isPending ? "default" : "pointer",
+              opacity: isPending ? 0.6 : 1,
+            }}
+          >
+            Dev Login
+          </button>
+        </div>
+      )}
     </>
   );
 }
