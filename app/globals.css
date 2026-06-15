@@ -70,3 +70,38 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* -------------------------------------------------------------------------
+ * Prelaunch countdown page — responsive zoom
+ * mm:2268:35127  The prelaunch time row is ~645px wide at Figma design size.
+ * We use CSS `zoom` (not transform:scale) so layout box shrinks with the visual,
+ * keeping the block within the viewport without overflow.
+ *
+ * Breakpoints:
+ *   < 480px   — zoom 0.48  (fits 375px: 720 × 0.48 ≈ 346px)
+ *   480–719px — zoom 0.62  (fits 480px: 720 × 0.62 ≈ 446px)
+ *   720-1023px — zoom 0.82
+ *   ≥ 1024px  — zoom 1 (no zoom, full Figma size)
+ * -------------------------------------------------------------------------
+ */
+.prelaunch-countdown-scaler {
+  zoom: 1;
+}
+
+@media (max-width: 479px) {
+  .prelaunch-countdown-scaler {
+    zoom: 0.48;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 719px) {
+  .prelaunch-countdown-scaler {
+    zoom: 0.62;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1023px) {
+  .prelaunch-countdown-scaler {
+    zoom: 0.82;
+  }
+}

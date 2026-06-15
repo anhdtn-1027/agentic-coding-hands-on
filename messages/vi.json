@@ -4,6 +4,9 @@
     "en": "English",
     "ja": "日本語"
   },
+  "prelaunch": {
+    "title": "Sự kiện sẽ bắt đầu sau"
+  },
   "login": {
     "welcomeLine1": "Bắt đầu hành trình của bạn cùng SAA 2025.",
     "welcomeLine2": "Đăng nhập để khám phá!",

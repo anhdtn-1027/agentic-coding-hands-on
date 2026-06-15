@@ -4,6 +4,9 @@
     "en": "English",
     "ja": "日本語"
   },
+  "prelaunch": {
+    "title": "イベント開始まで"
+  },
   "login": {
     "welcomeLine1": "SAA 2025 であなたの旅を始めましょう。",
     "welcomeLine2": "ログインして探索しよう！",

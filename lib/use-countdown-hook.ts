@@ -14,13 +14,11 @@ import { computeCountdown, parseEventDatetime, CountdownValues, ZERO } from "./u
  *   - Per-minute tick (client-side useEffect interval)
  */
 export function useCountdown(): CountdownValues {
-  const [values, setValues] = useState<CountdownValues>(() => {
-    // SSR-safe: return zeros on server, real value on client init
-    if (typeof window === "undefined") return ZERO;
-    const targetMs = parseEventDatetime(process.env.NEXT_PUBLIC_EVENT_DATETIME);
-    if (targetMs === null) return ZERO;
-    return computeCountdown(targetMs);
-  });
+  // Hydration-safe: the FIRST render (server AND client) must be identical, so it
+  // always returns ZERO. Computing the real value here on the client would diverge
+  // from the server HTML and cause a hydration mismatch. The real value is applied
+  // after mount in the effect below.
+  const [values, setValues] = useState<CountdownValues>(ZERO);
 
   useEffect(() => {
     const targetMs = parseEventDatetime(process.env.NEXT_PUBLIC_EVENT_DATETIME);
