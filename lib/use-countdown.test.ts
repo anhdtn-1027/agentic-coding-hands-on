@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { pad, computeCountdown, parseEventDatetime } from './use-countdown';
+import { pad, computeCountdown, parseEventDatetime, splitDigits } from './use-countdown';
 
 describe('use-countdown', () => {
   describe('pad()', () => {
@@ -119,6 +119,21 @@ describe('use-countdown', () => {
       expect(result.hours).toBe('00');
       expect(result.minutes).toBe('00');
       expect(result.showComingSoon).toBe(true);
+    });
+
+    it('splitDigits extracts two display digits (TC: two digits per unit)', () => {
+      // Normal two-digit values
+      expect(splitDigits('00')).toEqual(['0', '0']);
+      expect(splitDigits('05')).toEqual(['0', '5']);
+      expect(splitDigits('23')).toEqual(['2', '3']);
+      expect(splitDigits('59')).toEqual(['5', '9']);
+      // Single-char input → zero-padded
+      expect(splitDigits('5')).toEqual(['0', '5']);
+      // Empty / invalid → "00"
+      expect(splitDigits('')).toEqual(['0', '0']);
+      // Wider than 2 chars (e.g. "100" days) clamps to the 2-box max "99"
+      expect(splitDigits('100')).toEqual(['9', '9']);
+      expect(splitDigits('365')).toEqual(['9', '9']);
     });
 
     it('rounds down to minute granularity (TC ID-56)', () => {

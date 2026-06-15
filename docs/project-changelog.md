@@ -1,5 +1,42 @@
 # Project Changelog
 
+## [0.3.0] — 2026-06-15
+
+### Countdown — Prelaunch page (`/[locale]/prelaunch`)
+
+Full-screen prelaunch/coming-soon page (MoMorph screen `8PJQswPZmU`): dark organic background
++ overlay, localized title, and a live DAYS / HOURS / MINUTES countdown in LED-style digit boxes.
+Auth-required; freezes at 00:00:00 on completion (no redirect).
+
+#### Added
+
+- **Prelaunch UI (`components/countdown/`)**
+  - `prelaunch-page-view.tsx` — full-screen layout: background image + gradient overlay + centered
+    content, responsive via `.prelaunch-countdown-scaler` (CSS `zoom`)
+  - `prelaunch-countdown-block.tsx` — localized title + countdown row
+  - `prelaunch-client.tsx` — client wrapper wiring `useCountdown()` + i18n title
+- `app/[locale]/prelaunch/page.tsx` — server route (locale-aware, auth-gated via `proxy.ts`)
+- `lib/use-countdown.ts` — pure `splitDigits()` helper (clamps to 2 LED boxes, 00–99)
+- **i18n** — `prelaunch.title` added to `messages/{vi,en,ja}.json`
+- `public/countdown-prelaunch-bg.png` — background asset (Figma node 2268:35129)
+
+#### Changed
+
+- `components/homepage/countdown-display.tsx` — added `variant="prelaunch"` size table (DRY reuse
+  by homepage + prelaunch); digit split now via `splitDigits` (fixes >99-day truncation)
+
+#### Fixed
+
+- **Hydration mismatch in `useCountdown`** — the `useState` lazy initializer computed the real
+  countdown on the client's first render while the server rendered `00`, causing a React hydration
+  error (digit "0" vs "15"). Initializer now always returns `ZERO`; the real value is applied
+  post-mount in the effect. Affected both the prelaunch page and the homepage countdown.
+
+#### Notes
+
+- DAYS/HOURS/MINUTES labels stay English across all locales (per design); only the title is localized
+- Range/edge-case logic (00–23, 00–59, invalid→00, complete→00) is the existing `computeCountdown`
+
 ## [0.2.0] — 2026-06-12
 
 ### Award System page (Hệ thống giải thưởng SAA 2025)

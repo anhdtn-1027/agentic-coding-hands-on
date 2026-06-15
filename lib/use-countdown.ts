@@ -67,4 +67,19 @@ export function parseEventDatetime(raw: string | null | undefined): number | nul
   return ms;
 }
 
+/**
+ * Split a countdown value into exactly two display digits.
+ * Each unit renders in two LED digit boxes, so the display can represent 00–99.
+ * - Wider values (e.g. "100" days) clamp to the 2-box maximum "99".
+ * - Single-char values are zero-padded ("5" → ["0","5"]).
+ * - Empty/invalid → ["0","0"].
+ * @returns [tens, units]
+ */
+export function splitDigits(value: string): [string, string] {
+  const v = value.length > 2 ? "99" : value;
+  const tens = v.length >= 2 ? v[0] : "0";
+  const units = v.length >= 2 ? v[1] : v[0] ?? "0";
+  return [tens, units];
+}
+
 export { useCountdown } from "./use-countdown-hook";
