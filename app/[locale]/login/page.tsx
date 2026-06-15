@@ -169,7 +169,6 @@ export default function LoginPage() {
     // Full-screen relative container for absolute-positioned layers
     <div className="relative min-h-screen flex flex-col" style={{ background: "#00101A" }}>
       {/* Layer C — full-bleed background keyvisual (z-0) */}
-      {/* saa-bg.jpg unavailable from Figma API; dark gradient fallback applied */}
       <BackgroundKeyVisual />
 
       {/* Layer A — sticky header (z-40) */}
