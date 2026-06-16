@@ -57,7 +57,7 @@ test.describe('Login screen — unauthenticated', () => {
     await langBtn.click();
     await expect(langBtn).toHaveAttribute('aria-expanded', 'true');
     await expect(page.getByRole('listbox')).toBeVisible();
-    await expect(page.getByRole('option')).toHaveCount(3);
+    await expect(page.getByRole('option')).toHaveCount(2);
   });
 
   test('clicking Google login starts the auth flow (TC 60bc5bbb, e76aa170)', async ({

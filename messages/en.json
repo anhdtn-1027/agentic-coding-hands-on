@@ -1,8 +1,7 @@
 {
   "locale": {
     "vi": "Tiếng Việt",
-    "en": "English",
-    "ja": "日本語"
+    "en": "English"
   },
   "prelaunch": {
     "title": "The event will begin in"
@@ -48,6 +47,15 @@
     "awardsCaption": "Sun* annual awards 2025",
     "awardsTitle": "Awards System",
     "detailLink": "Details",
+    "eventTimeLabel": "Time:",
+    "eventVenueLabel": "Venue:",
+    "widgetAria": "Write Kudos / SAA rules",
+    "rootFurther": {
+      "paragraph1": "In the face of the AI era's whirlwind of change and the ever-rising demands of customers, Sun* has chosen a strategy of diversifying its capabilities — striving not only to become the elite of its own field, but also to reach for a higher goal, where every Sunner is a “problem-solver”: an expert at resolving every issue and finding answers to every challenge facing our projects, our customers and society. Inspired by this diversity of capability, the ability to grow flexibly, and the spirit of digging deeper to break through in the AI era, “Root Further” was chosen as the official theme of the Sun* Annual Awards 2025. Beyond its surface meaning, “Root Further” is the journey on which we never stop reaching farther and rooting deeper — touching the hidden “geological” layers so we can keep surviving, rising, and nurturing the Sun* people's ever-burning passion for creating value. Like a root system that keeps driving deep into the earth, powerfully weaving through each layer of “sediment” to absorb what is most precious, Sun* people are likewise “absorbing” nutrients from the era and the challenges of the market to renew themselves every day, expand their capabilities, and firmly “take root” in the AI era — a wholly new “geological” layer, complex and unpredictable, yet brimming with boundless potential and opportunity.",
+      "quoteLine": "“A tree with deep roots fears no storm”",
+      "quoteAttribution": "(English proverb)",
+      "paragraph2": "In the face of a storm, only trees with strong enough roots can stand firm. An organization made up of individuals who are confident in their diverse capabilities, ready to create and embrace challenges, and in command of change is one that not only stays steady amid turbulence, but also harnesses every advantage and conquers the challenges of the times. More than just the name of a new chapter in our organization's growth, “Root Further” is also a rallying call, encouraging each of us to dare to believe in ourselves, dare to dig deep, unlock all of our potential, dare to break our limits, and dare to become the most versatile and outstanding version of ourselves. Because in the AI era, a diversity of capabilities and harnessing the power of the times are the prerequisites for lasting endurance. No one can foresee how many mysterious “geological” layers still lie hidden deep in the “earth” of the modern technology industry and market. We know only that once “Root Further” has become a rooted spirit, we will feel no fear — but rather growing excitement before any uncharted territory on the journey forward. For we always believe that within those very boundless realms lie countless wonders and opportunities to rise, waiting for us."
+    },
     "awards": {
       "topTalent": {
         "title": "Top Talent",

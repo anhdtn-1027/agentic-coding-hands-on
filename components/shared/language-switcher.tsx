@@ -5,7 +5,7 @@
 // Contents: flag(24x24) + code text + chevron-down(24x24)
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useLocale } from "next-intl";
 import { LanguageDropdown } from "./language-dropdown";
 import { LANGUAGE_OPTIONS } from "./language-options";
@@ -13,12 +13,18 @@ import { LANGUAGE_OPTIONS } from "./language-options";
 export function LanguageSwitcher() {
   const [open, setOpen] = useState(false);
   const locale = useLocale();
+  // Wraps trigger + dropdown; passed to the dropdown for outside-click scoping.
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const current =
     LANGUAGE_OPTIONS.find((o) => o.code === locale) ?? LANGUAGE_OPTIONS[0];
 
   return (
-    <div className="relative" style={{ width: "108px", height: "56px" }}>
+    <div
+      ref={wrapperRef}
+      className="relative"
+      style={{ width: "108px", height: "56px" }}
+    >
       <button
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
@@ -70,7 +76,12 @@ export function LanguageSwitcher() {
         />
       </button>
 
-      {open && <LanguageDropdown onClose={() => setOpen(false)} />}
+      {open && (
+        <LanguageDropdown
+          onClose={() => setOpen(false)}
+          containerRef={wrapperRef}
+        />
+      )}
     </div>
   );
 }

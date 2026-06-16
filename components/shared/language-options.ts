@@ -1,6 +1,6 @@
-// mm:hUyaaugye2 (Dropdown-ngôn ngữ) — VN/EN from design, JA added per clarifications
+// mm:hUyaaugye2 (Dropdown-ngôn ngữ) — VN/EN per design
 export interface LanguageOption {
-  code: "vi" | "en" | "ja";
+  code: "vi" | "en";
   label: string;
   flagSrc: string;
   flagAlt: string;
@@ -18,11 +18,5 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
     label: "EN",
     flagSrc: "/shared/flag-gb.svg",
     flagAlt: "English",
-  },
-  {
-    code: "ja",
-    label: "JP",
-    flagSrc: "/shared/flag-jp.svg",
-    flagAlt: "日本語",
   },
 ] as const;

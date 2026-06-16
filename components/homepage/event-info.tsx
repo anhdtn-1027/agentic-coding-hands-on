@@ -1,5 +1,11 @@
+"use client";
+
 // mm:2167:9053
-// EventInfo — presentational event detail block under countdown
+// EventInfo — presentational event detail block under countdown.
+// Static labels ("Thời gian:" / "Địa điểm:") come from i18n so they switch locale;
+// values (time/venue/livestream) are still injected via props by the homepage client.
+
+import { useTranslations } from "next-intl";
 
 interface EventInfoProps {
   /** Time/date value shown in yellow — Figma: "26/12/2025"; integration may override with "18h30" etc. */
@@ -13,6 +19,7 @@ export function EventInfo({
   venue = "Âu Cơ Art Center",
   livestreamText = "Tường thuật trực tiếp qua sóng Livestream",
 }: EventInfoProps) {
+  const t = useTranslations("homepage");
   return (
     // mm:2167:9053
     <div
@@ -37,7 +44,7 @@ export function EventInfo({
               color: "#FFFFFF",
             }}
           >
-            Thời gian:{" "}
+            {t("eventTimeLabel")}{" "}
           </span>
           {/* mm:2167:9057 */}
           <span
@@ -67,7 +74,7 @@ export function EventInfo({
               color: "#FFFFFF",
             }}
           >
-            Địa điểm:
+            {t("eventVenueLabel")}
           </span>
           {/* mm:2167:9059 */}
           <span
