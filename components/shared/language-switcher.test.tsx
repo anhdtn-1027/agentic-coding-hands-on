@@ -46,8 +46,22 @@ describe('LanguageSwitcher', () => {
     );
     const listbox = screen.getByRole('listbox');
     expect(listbox).toBeInTheDocument();
-    // All three locale options are offered (VN/EN/JP).
-    expect(screen.getAllByRole('option')).toHaveLength(3);
+    // Per design (hUyaaugye2), only VN/EN locale options are offered.
+    const options = screen.getAllByRole('option');
+    expect(options).toHaveLength(2);
+    expect(options.map((o) => o.textContent)).toEqual(['VN', 'EN']);
+  });
+
+  it('closes the dropdown when the trigger button is clicked again (regression)', async () => {
+    // Regression: previously the dropdown's outside-click listener closed on the
+    // button's mousedown, then the button's onClick re-opened it — so the button
+    // could never dismiss the menu. Outside-click is now scoped to the wrapper.
+    render(<LanguageSwitcher />);
+    const btn = screen.getByRole('button', { name: /vn/i });
+    await userEvent.click(btn);
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    await userEvent.click(btn);
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
   it('closes the dropdown on outside click', async () => {
