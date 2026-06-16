@@ -1,5 +1,57 @@
 # Project Changelog
 
+## [0.3.1] — 2026-06-16
+
+### Language dropdown re-aligned to design — Japanese (`ja`) removed
+
+Re-aligned the language switcher (MoMorph screen `hUyaaugye2` "Dropdown-ngôn ngữ") to the design,
+which specifies **VN/EN only**. Removed Japanese locale support across the whole stack, reversing the
+earlier "add JP" deviation (`plans/260609-1554-login-screen-saa/clarifications.md`).
+
+#### Removed
+
+- **i18n** — `ja` dropped from `i18n/routing.ts` locales; `messages/ja.json` deleted; `locale.ja`
+  label removed from `messages/{vi,en}.json`
+- **Proxy** — `isLoginPage`/`isHomePage` regexes narrowed from `(?:en|ja)` to `en`-only (`proxy.ts`)
+- **Components** — `ja`/`JP` option removed from `language-options.ts`; `LanguageOption.code`
+  union narrowed to `"vi" | "en"`
+- **Assets** — orphaned `public/shared/flag-jp.svg` deleted
+
+#### Fixed
+
+- **Homepage long-form copy did not switch language** — `RootFurtherContent` (the two "Root
+  Further" paragraphs + quote), the `EventInfo` `Thời gian:`/`Địa điểm:` labels, and the
+  `WidgetButton` `aria-label` were hard-coded in Vietnamese and bypassed `next-intl`, so `/en`
+  still showed Vietnamese. Extracted into the `homepage` message namespace
+  (`rootFurther.*`, `eventTimeLabel`, `eventVenueLabel`, `widgetAria`) with authored English,
+  and rendered via `useTranslations`. Regression tests added
+  (`root-further-content.test.tsx`, `event-info.test.tsx`) assert English renders under `en`
+  with no Vietnamese leakage.
+- **Language dropdown could not be dismissed by its own trigger** — while open, clicking
+  the switcher button closed (via the dropdown's outside-click `mousedown`) then immediately
+  re-opened (via the button's `onClick`). Outside-click detection is now scoped to the whole
+  switcher wrapper (`containerRef`), so the trigger button cleanly toggles closed. Surfaced by
+  the new test suite below.
+
+#### Changed
+
+- `components/shared/language-dropdown.tsx` — accepts a `containerRef`; outside-click checks
+  the wrapper instead of the dropdown alone
+- `components/shared/language-switcher.tsx` — owns the wrapper ref, passes it to the dropdown
+
+#### Tests
+
+- `components/shared/language-dropdown.test.tsx` (NEW) — 6 unit tests: VN/EN render, `aria-selected`
+  state, EN select navigates + closes, current-locale select closes without navigating, Escape +
+  outside-click close
+- `components/shared/language-switcher.test.tsx` — asserts 2 options (`['VN','EN']`) + trigger-toggle
+  regression test
+- `e2e/language-switcher.spec.ts` (NEW) — 7 Playwright tests: default VN copy, dropdown opens with 2
+  options, EN↔VN switch (URL `/login` ↔ `/en/login` + interface copy), trigger-toggle regression,
+  outside-click + Escape close
+- `e2e/login.spec.ts` — dropdown option count assertion `3 → 2`
+- `docs/system-architecture.md` — locale table, message-file list, namespaces, and asset list updated
+
 ## [0.3.0] — 2026-06-15
 
 ### Countdown — Prelaunch page (`/[locale]/prelaunch`)

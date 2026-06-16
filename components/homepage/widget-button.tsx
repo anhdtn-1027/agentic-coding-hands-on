@@ -1,12 +1,17 @@
+"use client";
+
 // mm:5022:15169
 // WidgetButton — floating bottom-right pill (yellow, pen icon + "/" + kudos logo icon)
 // Fixed-position overlay; onClick passed by integration layer.
+
+import { useTranslations } from "next-intl";
 
 interface WidgetButtonProps {
   onClick?: () => void;
 }
 
 export function WidgetButton({ onClick }: WidgetButtonProps) {
+  const t = useTranslations("homepage");
   return (
     // mm:5022:15169
     <div
@@ -32,7 +37,7 @@ export function WidgetButton({ onClick }: WidgetButtonProps) {
           border: "none",
           cursor: "pointer",
         }}
-        aria-label="Viết Kudos / Thể lệ SAA"
+        aria-label={t("widgetAria")}
       >
         {/* mm:I5022:15169;214:3839;186:1935 — icon group: pen + "/" */}
         <div
