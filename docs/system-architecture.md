@@ -26,7 +26,6 @@
 |---|---|---|
 | Vietnamese (default) | none | `/login`, `/` |
 | English | `/en` | `/en/login`, `/en/` |
-| Japanese | `/ja` | `/ja/login`, `/ja/` |
 
 Config: `i18n/routing.ts` — `localePrefix: "as-needed"`, `localeDetection: false` (browser language never overrides; default is always `vi`).
 
@@ -81,12 +80,12 @@ token.role = getAdminEmails().includes(user.email.toLowerCase()) ? "admin" : "us
 - `i18n/request.ts` — `getRequestConfig` with locale validation + message import
 - `i18n/navigation.ts` — `createNavigation` wrappers (`Link`, `redirect`, `usePathname`, `useRouter`, `getPathname`)
 
-**Message files:** `messages/{vi,en,ja}.json`
+**Message files:** `messages/{vi,en}.json`
 
 **Namespaces:**
 
 ```
-locale.{vi,en,ja}
+locale.{vi,en}
 login.{welcomeLine1, welcomeLine2, googleButton}
 header.nav.{aboutSaa, awardsInfo, sunKudos}
 header.account.{profile, signOut, adminDashboard}
@@ -100,7 +99,7 @@ homepage.awards.{starOfTheYear, bestLeader, riseOfTheYear,
 homepage.kudos.{label, title, description, detail}
 ```
 
-`vi` text sourced from Figma design content. `en`/`ja` are authored translations.
+`vi` text sourced from Figma design content. `en` is authored translation.
 
 ---
 
@@ -110,7 +109,7 @@ homepage.kudos.{label, title, description, detail}
 
 | File | Type | Purpose |
 |---|---|---|
-| `language-options.ts` | data | `LanguageOption` type + `LANGUAGE_OPTIONS` (vi/en/ja) |
+| `language-options.ts` | data | `LanguageOption` type + `LANGUAGE_OPTIONS` (vi/en) |
 | `language-switcher.tsx` | client | Flag + code + chevron toggle, 108×56px |
 | `language-dropdown.tsx` | client | Locale switcher dropdown (Figma mm:525:11713) |
 | `notification-button.tsx` | client | Bell icon + red 8×8px badge |
@@ -173,7 +172,7 @@ No server-only vars appear in any `"use client"` file. Only `NEXT_PUBLIC_EVENT_D
 ## Public Assets
 
 ```
-public/shared/    — saa-logo.png, flag-vn.svg, flag-gb.svg, flag-jp.svg,
+public/shared/    — saa-logo.png, flag-vn.svg, flag-gb.svg,
                     chevron-down.svg, bell.svg, user-profile.svg,
                     saa-logo-footer.png, arrow-right.svg
 public/homepage/  — keyvisual-bg.png, root-further-logo.png, root-text.png,
@@ -183,7 +182,7 @@ public/homepage/  — keyvisual-bg.png, root-further-logo.png, root-text.png,
                     kudos-background.png, kudos-logo.svg
 ```
 
-`flag-gb.svg` and `flag-jp.svg` are inline-created SVGs (MoMorph S3 did not have them). `flag-vn.svg` came from MoMorph.
+`flag-gb.svg` is an inline-created SVG (MoMorph S3 did not have it). `flag-vn.svg` came from MoMorph.
 
 ---
 

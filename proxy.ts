@@ -25,13 +25,13 @@ export default auth(function middleware(req: NextRequest) {
 
   const isAuthed = !!session?.user;
 
-  // Login page matches /login (vi default no-prefix) and /en/login /ja/login
+  // Login page matches /login (vi default no-prefix) and /en/login
   const isLoginPage =
-    pathname === "/login" || /^\/(?:en|ja)\/login$/.test(pathname);
+    pathname === "/login" || /^\/en\/login$/.test(pathname);
 
   // Homepage is public (TC ID-0: unauthenticated users see public content).
-  // Matches "/" (vi default no-prefix) and "/en" /"/ja".
-  const isHomePage = pathname === "/" || /^\/(?:en|ja)$/.test(pathname);
+  // Matches "/" (vi default no-prefix) and "/en".
+  const isHomePage = pathname === "/" || /^\/en$/.test(pathname);
 
   // Public paths that never require auth
   const isPublic =
