@@ -1,5 +1,68 @@
 # Project Changelog
 
+## [0.4.1] — 2026-06-16
+
+### Sun* Kudos Live Board — test coverage (unit + E2E)
+
+No app behavior changed. Adds comprehensive test coverage for the Live Board screen
+(MoMorph screen `MaZUn5xHXZ`) introduced in [0.4.0].
+
+#### Added
+
+- **Unit tests (`components/sun-kudos/`)** — 15 new Vitest + RTL test files covering:
+  `kudos-banner`, `kudos-input-row`, `user-info-block`, `section-heading`,
+  `highlight-kudos-card`, `highlight-kudos-section`, `kudos-post-card`,
+  `all-kudos-section`, `kudos-stats-block`, `kudos-leaderboard`, `kudos-sidebar`,
+  `spotlight-board`, `spotlight-canvas`, `spotlight-controls`; plus `spotlight-scatter.ts`
+  (pure util). Suite grew from 128 tests / 5 files → **651 tests / 29 files**.
+- **E2E (`e2e/sun-kudos.spec.ts`)** — 16 Playwright tests authenticating via the existing
+  `e2e/auth-stub.ts` (page is auth-gated). Covers: all spec sections present, carousel
+  pagination + disabled-state edges, heart Like/Unlike toggle + count, Copy Link toast,
+  Hashtag/Department filter dropdowns, Spotlight Pan/Zoom interactions,
+  unauthenticated→`/login` redirect, and vi/en i18n split. Assertions traced to MoMorph
+  test-case IDs (screen `MaZUn5xHXZ`).
+
+#### Verification
+
+- `tsc` strict clean
+- `npm test` — 651 unit tests pass (29 files)
+- `npm run test:e2e` — 29 E2E tests pass (0 skipped)
+
+## [0.4.0] — 2026-06-16
+
+### Sun* Kudos — Live Board (`/[locale]/sun-kudos`)
+
+Replaces the `/sun-kudos` placeholder with the full Live Board screen
+(MoMorph screen `MaZUn5xHXZ`). Auth-required; fully responsive (main + sidebar stack < lg).
+No backend — DB-sourced content served by mock data (`mock-data.ts`, `mock-users.ts`).
+
+#### Added
+
+- **Server shell** — `app/[locale]/sun-kudos/page.tsx` rewritten as a server component
+  orchestrating the four board sections
+- **Foundation (`components/sun-kudos/`)**
+  - `types.ts` — shared interfaces (`KudosPost`, `KudosUser`, `KudosStat`, …)
+  - `mock-users.ts`, `mock-data.ts` — mock data standing in for DB-sourced content
+  - `user-info-block.tsx`, `hashtag-list.tsx`, `section-heading.tsx` — shared presentational atoms
+  - `heart-button.tsx` — like toggle with optimistic counter (client)
+  - `copy-link-button.tsx` — clipboard copy with transient toast (client)
+- **Section A — Banner + compose row**: `kudos-banner.tsx`, `kudos-input-row.tsx`
+- **Section B — Highlight carousel**: `highlight-filters.tsx` (filter tabs), `highlight-kudos-card.tsx`,
+  `highlight-carousel.tsx` (prev/next nav), `carousel-arrow-icons.tsx`, `highlight-kudos-section.tsx`
+- **Section B — Spotlight word cloud**: `spotlight-scatter.ts` (pure scatter layout),
+  `spotlight-canvas.tsx` (pan/zoom/hover tooltip), `spotlight-controls.tsx`, `spotlight-board.tsx`
+- **Section C — All kudos**: `kudos-post-card.tsx`, `all-kudos-section.tsx` (paginated list + filter)
+- **Section D — Sidebar**: `kudos-stats-block.tsx`, `kudos-leaderboard.tsx`, `kudos-sidebar.tsx`
+- **i18n** — `sunKudos` namespace added to `messages/{vi,en}.json`; kudos message bodies + user names
+  are hardcoded Vietnamese (user content, not chrome)
+- **Assets** — `public/sun-kudos-live-board/` (board-specific static assets)
+
+#### Verification
+
+- `npm run build` green (both locales prerender, Turbopack)
+- `tsc` strict clean
+- 128 component tests pass
+
 ## [0.3.1] — 2026-06-16
 
 ### Language dropdown re-aligned to design — Japanese (`ja`) removed

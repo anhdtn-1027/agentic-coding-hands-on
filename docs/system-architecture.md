@@ -42,7 +42,7 @@ app/
     homepage-client.tsx         # Homepage client shell, countdown wired
     login/page.tsx              # Login page, Google signIn, Suspense boundary
     awards-information/page.tsx # Placeholder
-    sun-kudos/page.tsx          # Placeholder
+    sun-kudos/page.tsx          # Sun* Kudos Live Board (server shell + client sections A–D)
   preview-login/page.tsx        # Stub (returns null) — dev artifact, not guarded
   preview-homepage/page.tsx     # Stub (returns null) — dev artifact, not guarded
 ```
@@ -97,6 +97,11 @@ homepage.{comingSoon, days, hours, minutes, seconds, eventTime,
 homepage.awards.{starOfTheYear, bestLeader, riseOfTheYear,
                  bestTeam, innovationAward, customerChampion}.{title, description}
 homepage.kudos.{label, title, description, detail}
+sunKudos.{filters.{all, mostLiked, mostRecent, myKudos},
+          spotlight.{title, zoomIn, zoomOut, resetView},
+          stats.{totalKudos, activeMembers, topHashtag},
+          leaderboard.{title, rank, name, kudosGiven, kudosReceived},
+          actions.{copyLink, copied, heart}}
 ```
 
 `vi` text sourced from Figma design content. `en` is authored translation.
@@ -136,6 +141,38 @@ Background key visual uses a dark gradient overlay fallback — the Figma source
 | `cta-buttons.tsx` | Call-to-action buttons |
 | `widget-button.tsx` | Widget button |
 | `root-further-content.tsx` | Root/Further brand content (text hardcoded Vietnamese — intentionally brand-language only) |
+
+### `components/sun-kudos/`
+
+Sun* Kudos Live Board (MoMorph screen `MaZUn5xHXZ`). Static layout + light client interactivity;
+no backend. Mock data stands in for DB-sourced content (`mock-data.ts`, `mock-users.ts`).
+
+| File | Type | Purpose |
+|---|---|---|
+| `types.ts` | data | Shared TypeScript interfaces (`KudosPost`, `KudosUser`, `KudosStat`, etc.) |
+| `mock-users.ts` | data | Mock user roster (names/avatars; DB-sourced placeholder) |
+| `mock-data.ts` | data | Mock kudos posts, stats, leaderboard rows |
+| `user-info-block.tsx` | presentational | Avatar + name + team badge |
+| `hashtag-list.tsx` | presentational | Pill list of hashtag strings |
+| `heart-button.tsx` | client | Like toggle with optimistic counter |
+| `copy-link-button.tsx` | client | Clipboard copy with transient "Copied" toast |
+| `section-heading.tsx` | presentational | Shared section title bar |
+| `kudos-banner.tsx` | presentational | Section A hero banner |
+| `kudos-input-row.tsx` | presentational | Section A compose-row mockup (non-functional) |
+| `highlight-filters.tsx` | client | Section B filter tabs (All / Most Liked / Most Recent / My Kudos) |
+| `highlight-kudos-card.tsx` | presentational | Section B single highlight card |
+| `highlight-carousel.tsx` | client | Section B carousel with prev/next navigation |
+| `carousel-arrow-icons.tsx` | data | SVG arrow icon components for carousel |
+| `highlight-kudos-section.tsx` | server | Section B orchestrator |
+| `spotlight-scatter.ts` | util | Pure function: scatter word-cloud node positions |
+| `spotlight-canvas.tsx` | client | Section B.6 interactive canvas (pan/zoom/hover tooltip) |
+| `spotlight-controls.tsx` | client | Section B.7 zoom-in/zoom-out/reset controls |
+| `spotlight-board.tsx` | client | Section B word-cloud orchestrator |
+| `kudos-post-card.tsx` | presentational | Section C single post card |
+| `all-kudos-section.tsx` | client | Section C paginated post list with filter dropdown |
+| `kudos-stats-block.tsx` | presentational | Section D summary stat tiles |
+| `kudos-leaderboard.tsx` | presentational | Section D leaderboard table |
+| `kudos-sidebar.tsx` | presentational | Section D sidebar (stats + leaderboard) |
 
 ---
 
@@ -180,6 +217,7 @@ public/homepage/  — keyvisual-bg.png, root-further-logo.png, root-text.png,
                     top-talent.png, top-project.png, top-project-leader.png,
                     best-manager.png, mvp.png, signature-2025-creator.png,
                     kudos-background.png, kudos-logo.svg
+public/sun-kudos-live-board/  — static assets for the Sun* Kudos Live Board screen
 ```
 
 `flag-gb.svg` is an inline-created SVG (MoMorph S3 did not have it). `flag-vn.svg` came from MoMorph.

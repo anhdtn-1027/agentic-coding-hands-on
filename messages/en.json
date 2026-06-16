@@ -89,6 +89,47 @@
       "cta": "Details"
     }
   },
+  "sunKudos": {
+    "banner": {
+      "title": "Recognition and Appreciation System"
+    },
+    "input": {
+      "placeholder": "Today, who would you like to send recognition and appreciation to?",
+      "searchPlaceholder": "Search Sunner profile"
+    },
+    "sectionSubtitle": "Sun* Annual Awards 2025",
+    "highlight": {
+      "title": "HIGHLIGHT KUDOS",
+      "filterHashtag": "Hashtag",
+      "filterDepartment": "Department"
+    },
+    "spotlight": {
+      "title": "SPOTLIGHT BOARD",
+      "countSuffix": "KUDOS",
+      "searchPlaceholder": "Search",
+      "panZoom": "Pan/Zoom"
+    },
+    "allKudos": {
+      "title": "ALL KUDOS"
+    },
+    "card": {
+      "viewDetail": "View detail",
+      "copyLink": "Copy Link",
+      "copyToast": "Link copied — ready to share!"
+    },
+    "emptyKudos": "No Kudos yet.",
+    "emptyLeaderboard": "No data available",
+    "sidebar": {
+      "statsReceived": "Kudos received:",
+      "statsSent": "Kudos sent:",
+      "statsHearts": "Hearts received:",
+      "statsBoxOpened": "Secret Boxes opened:",
+      "statsBoxUnopened": "Secret Boxes unopened:",
+      "openGift": "Open gift",
+      "leaderboardRankUp": "10 SUNNERS WITH NEWEST RANK-UPS",
+      "leaderboardGifts": "10 SUNNERS WITH NEWEST GIFTS"
+    }
+  },
   "awardSystem": {
     "caption": "Sun* Annual Awards 2025",
     "title": "SAA 2025 Award System",
