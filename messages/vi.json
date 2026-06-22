@@ -89,6 +89,47 @@
       "cta": "Chi tiết"
     }
   },
+  "sunKudos": {
+    "banner": {
+      "title": "Hệ thống ghi nhận và cảm ơn"
+    },
+    "input": {
+      "placeholder": "Hôm nay, bạn muốn gửi lời cảm ơn và ghi nhận đến ai?",
+      "searchPlaceholder": "Tìm kiếm profile Sunner"
+    },
+    "sectionSubtitle": "Sun* Annual Awards 2025",
+    "highlight": {
+      "title": "HIGHLIGHT KUDOS",
+      "filterHashtag": "Hashtag",
+      "filterDepartment": "Phòng ban"
+    },
+    "spotlight": {
+      "title": "SPOTLIGHT BOARD",
+      "countSuffix": "KUDOS",
+      "searchPlaceholder": "Tìm kiếm",
+      "panZoom": "Pan/Zoom"
+    },
+    "allKudos": {
+      "title": "ALL KUDOS"
+    },
+    "card": {
+      "viewDetail": "Xem chi tiết",
+      "copyLink": "Copy Link",
+      "copyToast": "Link copied — ready to share!"
+    },
+    "emptyKudos": "Hiện tại chưa có Kudos nào.",
+    "emptyLeaderboard": "Chưa có dữ liệu",
+    "sidebar": {
+      "statsReceived": "Số Kudos nhận được:",
+      "statsSent": "Số Kudos đã gửi:",
+      "statsHearts": "Số tim nhận được:",
+      "statsBoxOpened": "Số Secret Box đã mở:",
+      "statsBoxUnopened": "Số Secret Box chưa mở:",
+      "openGift": "Mở quà",
+      "leaderboardRankUp": "10 SUNNER CÓ SỰ THĂNG HẠNG MỚI NHẤT",
+      "leaderboardGifts": "10 SUNNER NHẬN QUÀ MỚI NHẤT"
+    }
+  },
   "awardSystem": {
     "caption": "Sun* Annual Awards 2025",
     "title": "Hệ thống giải thưởng SAA 2025",
