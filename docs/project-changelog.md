@@ -1,5 +1,30 @@
 # Project Changelog
 
+## [0.5.3] — 2026-06-23
+
+### Test — Write Kudos coverage expanded to the MoMorph test-case matrix
+
+No app behavior changed. Expands automated coverage of the "Viết Kudo" modal (MoMorph screen
+`ihQ26W78P2`, 57 test cases).
+
+#### Added / Changed (tests only)
+
+- **`write-kudos-modal.test.tsx`** — added GUI checks (recipient/content placeholders, anonymous
+  default, char counter), hashtag chip count + min-1, image png-accept / `.txt`+`.mp4` reject /
+  max-5-hides-button / remove-re-shows, and toolbar tests that spy on `document.execCommand`
+  asserting the correct command id (bold/italic/strikethrough/insertOrderedList/formatBlock/createLink).
+- **`e2e/write-kudos.spec.ts`** — added unauthenticated→/login redirect, real bold/italic formatting,
+  5-hashtag max + 6th blocked, 5-image upload hides "+ Image", anonymous submit with display name,
+  and an @mention dropdown+insert test.
+- Replaced earlier non-functional assertions (no-op `.catch`, zero-`expect` @mention units, a
+  placeholder e2e body, a dead remove-image `if`) with assertions that actually exercise the feature.
+
+#### Coverage / Verification
+
+- ~44 of 57 MoMorph TCs covered; the rest need backend persistence or are unreachable by design
+  (per-field error text — "Gửi" is disabled-until-valid).
+- `npm test` — 689 unit pass; `npm run test:e2e` (write-kudos) — 11 pass; `tsc` + lint clean; build succeeds.
+
 ## [0.5.2] — 2026-06-23
 
 ### Fix — Write Kudos modal: restore design fidelity

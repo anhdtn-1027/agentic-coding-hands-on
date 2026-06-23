@@ -13,6 +13,9 @@ beforeAll(() => {
   // jsdom lacks object-URL APIs used by the image uploader.
   global.URL.createObjectURL = vi.fn(() => "blob:mock");
   global.URL.revokeObjectURL = vi.fn();
+  // jsdom doesn't define document.execCommand — provide a stub so toolbar tests can spy on it.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (document as any).execCommand = vi.fn(() => true);
 });
 
 function renderModal(overrides: Partial<React.ComponentProps<typeof WriteKudosModal>> = {}) {
@@ -196,6 +199,159 @@ describe("WriteKudosModal", () => {
     const { onCancel } = renderModal();
     await user.click(screen.getByRole("button", { name: /Hủy/ }));
     expect(onCancel).toHaveBeenCalled();
+  });
+
+  // ── New GUI tests (gaps) ──────────────────────────────────────────────────
+
+  it("displays recipient input placeholder 'Tìm kiếm' (TC ID-4)", () => {
+    renderModal();
+    const input = screen.getByLabelText("Người nhận");
+    expect(input).toHaveAttribute("placeholder", "Tìm kiếm");
+  });
+
+  it("shows content placeholder when empty (TC ID-5)", () => {
+    renderModal();
+    expect(screen.getByText(/Hãy gửi gắm lời cám ơn và ghi nhận đến đồng đội tại đây nhé!/)).toBeInTheDocument();
+  });
+
+  it("shows anonymous checkbox unchecked by default (TC ID-6)", () => {
+    renderModal();
+    const checkbox = screen.getByLabelText("Gửi lời cám ơn và ghi nhận ẩn danh");
+    expect(checkbox).not.toBeChecked();
+  });
+
+  it("displays character counter starting at 0/500 (GUI char counter)", () => {
+    renderModal();
+    expect(screen.getByText(/0\/500/)).toBeInTheDocument();
+  });
+
+  // ── New hashtag tests (gaps) ──────────────────────────────────────────────
+
+  it("adds 3 distinct hashtag chips, each with remove button (TC ID-35)", async () => {
+    const user = userEvent.setup();
+    renderModal();
+    const tags = [mockHashtags[0].label, mockHashtags[1].label, mockHashtags[2].label];
+
+    for (const tag of tags) {
+      await user.click(screen.getByText(tag));
+    }
+
+    // Exactly 3 hashtag chips, each with its own "Remove <tag>" button.
+    // (No images in this test, so only hashtag-chip remove buttons match.)
+    const removeButtons = screen.getAllByRole("button", { name: /^Remove / });
+    expect(removeButtons).toHaveLength(3);
+  });
+
+  it("keeps submit disabled with 0 hashtags even if other fields filled (TC ID-15)", async () => {
+    const user = userEvent.setup();
+    renderModal();
+    // Fill all required fields EXCEPT hashtag
+    await selectRecipient(user);
+    await user.type(screen.getByLabelText("Danh hiệu"), "Người hùng");
+    setContent("Cảm ơn bạn!");
+    // Submit still disabled
+    expect(screen.getByRole("button", { name: "Gửi" })).toBeDisabled();
+  });
+
+  // ── New image tests (gaps) ──────────────────────────────────────────────
+
+  it("uploads png images and shows thumbnail (TC ID-22)", async () => {
+    const { container } = renderModalWithContainer();
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+
+    const png = new File(["x"], "photo.png", { type: "image/png" });
+    fireEvent.change(fileInput, { target: { files: [png] } });
+    expect(screen.getByAltText("photo.png")).toBeInTheDocument();
+  });
+
+  it("rejects .txt files with error message (TC ID-24)", async () => {
+    const { container } = renderModalWithContainer();
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+
+    const txt = new File(["text"], "file.txt", { type: "text/plain" });
+    fireEvent.change(fileInput, { target: { files: [txt] } });
+    expect(screen.getByText(/Định dạng file không hợp lệ/)).toBeInTheDocument();
+  });
+
+  it("rejects .mp4 files with error message (TC ID-55)", async () => {
+    const { container } = renderModalWithContainer();
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+
+    const mp4 = new File(["video"], "video.mp4", { type: "video/mp4" });
+    fireEvent.change(fileInput, { target: { files: [mp4] } });
+    expect(screen.getByText(/Định dạng file không hợp lệ/)).toBeInTheDocument();
+  });
+
+  it("hides the '+ Image' add button when 5 images uploaded (TC ID-19/38)", async () => {
+    const { container } = renderModalWithContainer();
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+
+    // The add button (a real <button aria-label="+ Image">) is present initially.
+    expect(screen.getByRole("button", { name: "+ Image" })).toBeInTheDocument();
+
+    for (let i = 0; i < 5; i++) {
+      const jpg = new File(["x"], `photo${i}.jpg`, { type: "image/jpeg" });
+      fireEvent.change(fileInput, { target: { files: [jpg] } });
+    }
+
+    expect(screen.getAllByRole("img").filter((img) => img.getAttribute("alt")?.includes("photo"))).toHaveLength(5);
+    // At max, the add button is removed (TC ID-20: cannot add a 6th).
+    expect(screen.queryByRole("button", { name: "+ Image" })).not.toBeInTheDocument();
+  });
+
+  it("re-shows the '+ Image' button after removing one of 5 images (TC ID-40)", async () => {
+    const { container } = renderModalWithContainer();
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const user = userEvent.setup();
+
+    for (let i = 0; i < 5; i++) {
+      const jpg = new File(["x"], `photo${i}.jpg`, { type: "image/jpeg" });
+      fireEvent.change(fileInput, { target: { files: [jpg] } });
+    }
+    expect(screen.queryByRole("button", { name: "+ Image" })).not.toBeInTheDocument();
+
+    // Remove one image via its "Remove image" badge.
+    const removeButtons = screen.getAllByRole("button", { name: /remove image/i });
+    expect(removeButtons).toHaveLength(5);
+    await user.click(removeButtons[0]);
+
+    expect(screen.getAllByRole("img").filter((img) => img.getAttribute("alt")?.includes("photo"))).toHaveLength(4);
+    // Below max, the add button reappears.
+    expect(screen.getByRole("button", { name: "+ Image" })).toBeInTheDocument();
+  });
+
+  // ── New rich-text toolbar tests (gaps) ─────────────────────────────────
+  // Each toolbar button must invoke document.execCommand with the right command id.
+  // jsdom can't actually format text, so we spy on execCommand (real formatting is
+  // covered by the e2e suite). @mention insertion is also deferred to e2e (jsdom's
+  // Selection/caret handling inside contentEditable is unreliable).
+
+  it.each([
+    ["Bold", "bold", "TC ID-27"],
+    ["Italic", "italic", "TC ID-28"],
+    ["Strikethrough", "strikeThrough", "TC ID-29"],
+    ["Numbered list", "insertOrderedList", "TC ID-30"],
+    ["Quote", "formatBlock", "TC ID-32"],
+  ])("toolbar %s button calls execCommand('%s') (%s)", async (label, command) => {
+    const user = userEvent.setup();
+    const execSpy = vi.spyOn(document, "execCommand").mockReturnValue(true);
+    renderModal();
+    await user.click(screen.getByRole("button", { name: new RegExp(label, "i") }));
+    // The command id is the first execCommand arg (some commands pass no 3rd arg).
+    expect(execSpy.mock.calls.map((c) => c[0])).toContain(command);
+    execSpy.mockRestore();
+  });
+
+  it("toolbar Link button prompts for a URL then calls execCommand('createLink') (TC ID-31)", async () => {
+    const user = userEvent.setup();
+    const execSpy = vi.spyOn(document, "execCommand").mockReturnValue(true);
+    const promptSpy = vi.spyOn(window, "prompt").mockReturnValue("https://example.com");
+    renderModal();
+    await user.click(screen.getByRole("button", { name: /link/i }));
+    expect(promptSpy).toHaveBeenCalled();
+    expect(execSpy).toHaveBeenCalledWith("createLink", false, "https://example.com");
+    execSpy.mockRestore();
+    promptSpy.mockRestore();
   });
 });
 
