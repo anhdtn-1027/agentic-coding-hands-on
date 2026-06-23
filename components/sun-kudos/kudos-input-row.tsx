@@ -87,6 +87,7 @@ function PillField({
       style={{
         gap: 8,
         padding: "24px 16px",
+        width: "100%", // fill the parent pill container so the input isn't clipped
         height: 72,
         border: focused
           ? "1px solid rgba(255, 234, 158, 0.80)" // focus: brighter gold
@@ -106,7 +107,7 @@ function PillField({
       {/* gap: 16px between icon and text */}
       <div
         className="flex items-center"
-        style={{ gap: 16, overflow: "hidden" }}
+        style={{ gap: 16, overflow: "hidden", flex: 1, minWidth: 0 }}
       >
         {/* 24×24 icon — mm:I2940:13449;186:2759 (Pen) / I2940:13450;186:2759 (Search) */}
         <span style={{ flexShrink: 0, lineHeight: 0 }}>{icon}</span>

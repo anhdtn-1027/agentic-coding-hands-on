@@ -205,7 +205,7 @@ export function HashtagPicker({
                   <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: 14, lineHeight: "18px", letterSpacing: "0.5px", color: "black", }}>
                     {t("hashtagLabel")}
                   </span>
-                  <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: 10, lineHeight: "12px", letterSpacing: "0.5px", }}>
+                  <span style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 400, fontSize: 10, lineHeight: "12px", letterSpacing: "0.5px", }}>
                     {t("hashtagMax", { max: maxCount })}
                   </span>
                 </span>
