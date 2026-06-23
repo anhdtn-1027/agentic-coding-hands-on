@@ -1,5 +1,25 @@
 # Project Changelog
 
+## [0.5.1] — 2026-06-23
+
+### Fix — HIGHLIGHT KUDOS carousel: first slides pushed off-screen
+
+#### Fixed
+
+- **`highlight-carousel.tsx`** — the sliding track used `translateX(calc(50% - 264px - …))`,
+  but a percentage in `translateX` resolves against the element's **own** width. With 8 cards the
+  track is ~4392px wide, so `50%` (~2196px) shoved every card ~1932px to the right; on pages 1–3
+  the active card landed off-screen and appeared missing. Fixed by absolutely positioning the track
+  at `left: 50%` / `top: 50%` (relative to the viewport parent) with a pixel-only X offset
+  (`translate(calc(-264px - index*552px), -50%)`), so cards center on the viewport regardless of
+  track width.
+
+#### Verification
+
+- Added regression test asserting the track centers via `left:50%` + px-based offset (not `translateX(50%)`)
+- Visually verified: active card centers at viewport midpoint on pages 1–3 with faded neighbors
+- `npm test` — 672 unit tests pass; `tsc` clean; build succeeds
+
 ## [0.5.0] — 2026-06-23
 
 ### Sun* Kudos — Write Kudos modal (Viết Kudo)

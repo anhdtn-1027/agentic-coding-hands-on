@@ -55,12 +55,17 @@ export function HighlightCarousel({ kudos }: HighlightCarouselProps) {
 
       {/* mm:2940:13463 card viewport — overflow hidden, height 525px */}
       <div style={{ width: "100%", height: 525, position: "relative",
-        overflow: "hidden", display: "flex", alignItems: "center" }}>
+        overflow: "hidden" }}>
 
-        {/* Sliding cards track — translate to keep center card visible */}
+        {/* Sliding cards track — absolutely positioned so left:50% centers against the
+            VIEWPORT (this relative parent), not the track's own width. A percentage in
+            translateX would resolve against the track's full width (~4392px for 8 cards),
+            which pushed every card far off to the right. Card is 528px wide → shift -264px
+            to center it, then -552px (528 + 24 gap) per index. */}
         <div style={{
+          position: "absolute", top: "50%", left: "50%",
           display: "flex", flexDirection: "row", alignItems: "center", gap: 24,
-          transform: `translateX(calc(50% - 264px - ${currentIndex * 552}px))`,
+          transform: `translate(calc(-264px - ${currentIndex * 552}px), -50%)`,
           transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
           willChange: "transform",
         }}>
