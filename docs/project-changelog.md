@@ -1,5 +1,22 @@
 # Project Changelog
 
+## [0.5.2] — 2026-06-23
+
+### Fix — Write Kudos modal overflowed the screen
+
+#### Fixed
+
+- **`write-kudos-modal.tsx`** (+ field sub-components) — the modal was ~998px tall and overflowed a
+  720px-tall laptop viewport (capped at `maxHeight` with internal scroll, hiding the Hủy/Gửi footer).
+  Compacted the layout: section gap 32→16px, dialog padding 40→24px, content editor 200→112px,
+  title 32→24px, field labels 22→18px, image tiles 80→60px, footer buttons 60→48px, and tighter
+  input paddings. Modal now ~672px and fits without internal scroll.
+
+#### Verification
+
+- Added E2E regression test asserting the dialog does not overflow at 1280×720 (footer visible)
+- `npm test` — 672 unit pass; `npm run test:e2e` (write-kudos) pass; `tsc` clean; build succeeds
+
 ## [0.5.1] — 2026-06-23
 
 ### Fix — HIGHLIGHT KUDOS carousel: first slides pushed off-screen

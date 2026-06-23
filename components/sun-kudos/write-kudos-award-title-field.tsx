@@ -29,13 +29,13 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
       <div className="flex flex-col sm:flex-row sm:items-center" style={{ gap: 16 }}>
         {/* mm:I520:11647;1688:10436 — Title component "Danh hiệu" + * */}
         {/* width 139px, gap 2px, flex-row align-center */}
-        <div className="flex flex-row items-center shrink-0" style={{ gap: 2, width: 139 }}>
+        <div className="flex flex-row items-center shrink-0" style={{ gap: 2, width: 130 }}>
           <span
             style={{
               fontFamily: "Montserrat, sans-serif",
               fontWeight: 700,
-              fontSize: 22,
-              lineHeight: "28px",
+              fontSize: 18,
+              lineHeight: "24px",
               letterSpacing: 0,
               color: "rgba(0, 16, 26, 1)",
               whiteSpace: "nowrap",
@@ -65,7 +65,7 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
             border: error ? "1px solid rgba(207, 19, 34, 1)" : "1px solid #998C5F",
             borderRadius: 8,
             background: "#FFF",
-            padding: "16px 24px",
+            padding: "10px 16px",
             gap: 8,
           }}
         >
@@ -103,7 +103,7 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
       {/* On desktop: indent by label width + gap so it aligns under the input */}
       {/* On mobile: no indent (label stacks above) */}
       <style>{`
-        .award-title-helper { padding-left: ${139 + 16}px; }
+        .award-title-helper { padding-left: ${130 + 16}px; }
         @media (max-width: 639px) { .award-title-helper { padding-left: 0; } }
       `}</style>
       <div className="award-title-helper">
@@ -111,11 +111,11 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 16,
-            lineHeight: "24px",
+            fontSize: 13,
+            lineHeight: "18px",
             letterSpacing: "0.15px",
             color: "rgba(153, 153, 153, 1)",
-            margin: "6px 0 0 0",
+            margin: "4px 0 0 0",
             whiteSpace: "pre-line",
           }}
         >

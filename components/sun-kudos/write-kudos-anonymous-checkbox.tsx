@@ -27,8 +27,8 @@ export function AnonymousCheckbox({ checked, onChange }: AnonymousCheckboxProps)
       {/* 24×24 | border 1px #999 | bg #FFF | border-radius 4px */}
       <div
         style={{
-          width: 24,
-          height: 24,
+          width: 20,
+          height: 20,
           border: checked ? "1px solid #998C5F" : "1px solid rgba(153, 153, 153, 1)",
           borderRadius: 4,
           background: checked ? "rgba(255, 234, 158, 0.3)" : "#FFF",
@@ -46,8 +46,8 @@ export function AnonymousCheckbox({ checked, onChange }: AnonymousCheckboxProps)
           style={{
             position: "absolute",
             opacity: 0,
-            width: 24,
-            height: 24,
+            width: 20,
+            height: 20,
             margin: 0,
             cursor: "pointer",
           }}
@@ -72,8 +72,8 @@ export function AnonymousCheckbox({ checked, onChange }: AnonymousCheckboxProps)
         style={{
           fontFamily: "Montserrat, sans-serif",
           fontWeight: 700,
-          fontSize: 22,
-          lineHeight: "28px",
+          fontSize: 16,
+          lineHeight: "22px",
           letterSpacing: 0,
           color: "rgba(153, 153, 153, 1)",
         }}

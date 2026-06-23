@@ -108,19 +108,19 @@ export function HashtagPicker({
     // gap 16px | flex-row | align-items flex-start | height 48px (shrinks to content); stacks on mobile
     <div
       className="flex flex-col sm:flex-row sm:items-start"
-      style={{ gap: 16, width: "100%", minHeight: 48 }}
+      style={{ gap: 16, width: "100%", minHeight: 40 }}
     >
       {/* mm:mms_E.1_Title — "Hashtag" label + * */}
       <div
         className="flex flex-row items-center shrink-0"
-        style={{ gap: 2, paddingTop: 10 }}
+        style={{ gap: 2, paddingTop: 8 }}
       >
         <span
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 22,
-            lineHeight: "28px",
+            fontSize: 18,
+            lineHeight: "24px",
             color: "rgba(0, 16, 26, 1)",
             whiteSpace: "nowrap",
           }}
@@ -164,7 +164,7 @@ export function HashtagPicker({
               borderRadius: 8,
               background: "#FFF",
               padding: "4px 8px",
-              height: 48,
+              height: 40,
               display: "flex",
               alignItems: "center",
               opacity: canAdd ? 1 : 0.6,

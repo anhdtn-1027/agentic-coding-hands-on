@@ -216,14 +216,14 @@ export function RichTextArea({
           onBlur={() => window.setTimeout(() => setMentionOpen(false), 150)}
           style={{
             width: "100%",
-            minHeight: 120,
-            height: 200,
+            minHeight: 96,
+            height: 112,
             overflowY: "auto",
             border: error ? "1px solid rgba(207, 19, 34, 1)" : "1px solid #998C5F",
             borderTop: "none",
             borderRadius: "0 0 8px 8px",
             background: "#FFF",
-            padding: "16px 24px",
+            padding: "12px 16px",
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
             fontSize: 16,
