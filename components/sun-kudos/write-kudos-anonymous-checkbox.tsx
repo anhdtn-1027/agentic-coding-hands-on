@@ -75,7 +75,7 @@ export function AnonymousCheckbox({ checked, onChange }: AnonymousCheckboxProps)
           fontSize: 22,
           lineHeight: "28px",
           letterSpacing: 0,
-          color: "rgba(153, 153, 153, 1)",
+          color: "rgba(0, 0, 0, 1)",
         }}
       >
         {t("anonymousLabel")}

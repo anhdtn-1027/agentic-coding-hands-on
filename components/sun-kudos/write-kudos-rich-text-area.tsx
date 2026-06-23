@@ -290,7 +290,7 @@ export function RichTextArea({
 
       {/* mms_D.1_Gợi ý hint + char counter */}
       <div className="flex flex-row items-center justify-between" style={{ marginTop: 4, gap: 8 }}>
-        <p style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 700, fontSize: 16, lineHeight: "24px", letterSpacing: "0.15px", color: "rgba(153, 153, 153, 1)", margin: 0, flex: 1, textAlign: "center" }}>
+        <p style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 700, fontSize: 16, lineHeight: "24px", letterSpacing: "0.15px", color: "rgb(0, 0, 0)", margin: 0, flex: 1, textAlign: "center" }}>
           {t("contentMentionHint")}
         </p>
         <span style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 700, fontSize: 13, color: charCount > maxLength ? "rgba(207, 19, 34, 1)" : "rgba(153, 153, 153, 1)", flexShrink: 0 }} aria-label="character count">
