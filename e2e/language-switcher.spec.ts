@@ -44,7 +44,12 @@ test.describe('Language switcher — multi-language', () => {
     // URL gains the /en prefix and the UI re-renders in English.
     await expect(page).toHaveURL(/\/en\/login$/);
     await expect(page.getByText(EN_WELCOME)).toBeVisible();
-    await expect(page.getByRole('button', { name: /en/i })).toBeVisible();
+    // Scope to the header — bare /en/i also matches the Next.js Dev Tools button
+    // ("OpEN NExt.js Dev Tools"), which mounts asynchronously and causes a flaky
+    // strict-mode collision once it appears.
+    await expect(
+      page.getByRole('banner').getByRole('button', { name: /en/i }),
+    ).toBeVisible();
   });
 
   test('selecting VN from English returns to the default (unprefixed) locale', async ({
@@ -53,7 +58,7 @@ test.describe('Language switcher — multi-language', () => {
     await page.goto('/en/login');
     await expect(page.getByText(EN_WELCOME)).toBeVisible();
 
-    await page.getByRole('button', { name: /en/i }).click();
+    await page.getByRole('banner').getByRole('button', { name: /en/i }).click();
     await page.getByRole('option', { name: /vn/i }).click();
 
     await expect(page).toHaveURL(/\/login$/);

@@ -57,7 +57,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     jwt({ token, user }) {
       // Persist role on first sign-in (user is only defined on the initial JWT creation)
       if (user?.email) {
-        token.role = getAdminEmails().includes(user.email.toLowerCase()) ? "admin" : "user";
+        if (getAdminEmails().length === 0) {
+          token.role = user.email.toLowerCase().includes("@sun-asterisk.com") ? "admin" : "user";
+        } else {
+          token.role = getAdminEmails().includes(user.email.toLowerCase()) ? "admin" : "user";
+        }
       }
       return token;
     },
