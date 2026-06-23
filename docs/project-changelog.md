@@ -1,5 +1,119 @@
 # Project Changelog
 
+## [0.5.3] — 2026-06-23
+
+### Test — Write Kudos coverage expanded to the MoMorph test-case matrix
+
+No app behavior changed. Expands automated coverage of the "Viết Kudo" modal (MoMorph screen
+`ihQ26W78P2`, 57 test cases).
+
+#### Added / Changed (tests only)
+
+- **`write-kudos-modal.test.tsx`** — added GUI checks (recipient/content placeholders, anonymous
+  default, char counter), hashtag chip count + min-1, image png-accept / `.txt`+`.mp4` reject /
+  max-5-hides-button / remove-re-shows, and toolbar tests that spy on `document.execCommand`
+  asserting the correct command id (bold/italic/strikethrough/insertOrderedList/formatBlock/createLink).
+- **`e2e/write-kudos.spec.ts`** — added unauthenticated→/login redirect, real bold/italic formatting,
+  5-hashtag max + 6th blocked, 5-image upload hides "+ Image", anonymous submit with display name,
+  and an @mention dropdown+insert test.
+- Replaced earlier non-functional assertions (no-op `.catch`, zero-`expect` @mention units, a
+  placeholder e2e body, a dead remove-image `if`) with assertions that actually exercise the feature.
+
+#### Coverage / Verification
+
+- ~44 of 57 MoMorph TCs covered; the rest need backend persistence or are unreachable by design
+  (per-field error text — "Gửi" is disabled-until-valid).
+- `npm test` — 689 unit pass; `npm run test:e2e` (write-kudos) — 11 pass; `tsc` + lint clean; build succeeds.
+
+## [0.5.2] — 2026-06-23
+
+### Fix — Write Kudos modal: restore design fidelity
+
+Reverts the earlier over-compaction (the modal had been shrunk below the design) and corrects
+several details against MoMorph screen `ihQ26W78P2`.
+
+#### Fixed
+
+- **Modal height restored to design** — re-applied the authoritative MoMorph dimensions
+  (container `gap 32px` / `padding 40px`, editor 200px, title 32px, field labels 22px, image
+  tiles 80px, footer 60px; design height ~1012px). On short viewports the modal still caps at
+  `maxHeight: calc(100vh - 32px)` and scrolls internally — it never exceeds the screen.
+- **`write-kudos-award-title-field.tsx`** — removed the dropdown-arrow icon from the "Danh hiệu"
+  input; the spec defines it as a free-text field with no dropdown affordance.
+- **`write-kudos-rich-text-area.tsx`** — content placeholder ("Hãy gửi gắm lời cám ơn…") could
+  vanish: the CSS `:empty::before` approach breaks once the browser inserts a `<br>` on focus/blur
+  and doesn't paint in some browsers. Replaced with a JS-driven overlay shown while the editor is
+  empty (robust cross-browser).
+- **`write-kudos-hashtag-picker.tsx` / `write-kudos-image-uploader.tsx`** — the "+ Hashtag" /
+  "+ Image" buttons now render the label ("Hashtag" / "Image") bold and the "Tối đa 5" note in a
+  smaller, non-bold style, matching the design.
+
+#### Verification
+
+- `npm test` — 672 unit pass; `npm run test:e2e` (write-kudos) pass; `tsc` clean; build succeeds
+- Visually verified against the design at a tall viewport
+
+## [0.5.1] — 2026-06-23
+
+### Fix — HIGHLIGHT KUDOS carousel: first slides pushed off-screen
+
+#### Fixed
+
+- **`highlight-carousel.tsx`** — the sliding track used `translateX(calc(50% - 264px - …))`,
+  but a percentage in `translateX` resolves against the element's **own** width. With 8 cards the
+  track is ~4392px wide, so `50%` (~2196px) shoved every card ~1932px to the right; on pages 1–3
+  the active card landed off-screen and appeared missing. Fixed by absolutely positioning the track
+  at `left: 50%` / `top: 50%` (relative to the viewport parent) with a pixel-only X offset
+  (`translate(calc(-264px - index*552px), -50%)`), so cards center on the viewport regardless of
+  track width.
+
+#### Verification
+
+- Added regression test asserting the track centers via `left:50%` + px-based offset (not `translateX(50%)`)
+- Visually verified: active card centers at viewport midpoint on pages 1–3 with faded neighbors
+- `npm test` — 672 unit tests pass; `tsc` clean; build succeeds
+
+## [0.5.0] — 2026-06-23
+
+### Sun* Kudos — Write Kudos modal (Viết Kudo)
+
+Adds the "Viết Kudo" compose modal (MoMorph screen `ihQ26W78P2`), opened from the Live Board
+pen-pill input. No backend — submit optimistically prepends the new Kudos to the All Kudos feed
+via client-side React context.
+
+#### Added
+
+- **`kudos-board-provider.tsx`** — React context owning the kudos feed (seeded from `mock-data.ts`),
+  `addKudos()` (optimistic prepend), and modal open/close state; `useKudosBoard()` hook with
+  read-only fallback when used outside a provider
+- **`write-kudos-modal.tsx`** + sub-components — full modal UI + form logic:
+  `write-kudos-recipient-select`, `write-kudos-award-title-field`, `write-kudos-rich-text-area`,
+  `write-kudos-hashtag-picker`, `write-kudos-image-uploader`, `write-kudos-anonymous-checkbox`,
+  `write-kudos-modal-footer`, `write-kudos-icons`
+- **`write-kudos-modal-host.tsx`** — bridges provider state to the modal; maps form values to a
+  new `Kudos` object on submit
+- **Rich-text editor** — lightweight `contentEditable` using `document.execCommand`
+  (bold / italic / strikethrough / ordered-list / link / quote) + @mention from mock users +
+  500-char counter. Board stores plain text (compose-time formatting not persisted)
+- **Validation** — recipient, awardTitle, content, and ≥ 1 hashtag required; hashtags and images
+  capped at 5 each; images jpg/png only (client-side object URLs)
+- **Data model** — `Kudos` type extended: `awardTitle` (required, rendered as card heading),
+  `anonymous`, `anonymousName`
+- **i18n** — `sunKudos.writeModal.*` keys added to `messages/en.json` + `messages/vi.json`
+
+#### Changed
+
+- `kudos-input-row.tsx` — pen-pill input now `readOnly`; opens the Write Kudos modal on click
+  and keyboard activation (was non-functional)
+
+#### Verification
+
+- `tsc` strict clean
+- `npm test` — 671 unit tests pass
+- `npm run test:e2e` — 19 E2E tests pass
+
+---
+
 ## [0.4.1] — 2026-06-16
 
 ### Sun* Kudos Live Board — test coverage (unit + E2E)

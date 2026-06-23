@@ -101,7 +101,9 @@ sunKudos.{filters.{all, mostLiked, mostRecent, myKudos},
           spotlight.{title, zoomIn, zoomOut, resetView},
           stats.{totalKudos, activeMembers, topHashtag},
           leaderboard.{title, rank, name, kudosGiven, kudosReceived},
-          actions.{copyLink, copied, heart}}
+          actions.{copyLink, copied, heart},
+          writeModal.{title, recipientLabel, awardTitleLabel, contentLabel,
+                      hashtagLabel, imageLabel, anonymousLabel, submit, cancel, …}}
 ```
 
 `vi` text sourced from Figma design content. `en` is authored translation.
@@ -144,12 +146,20 @@ Background key visual uses a dark gradient overlay fallback — the Figma source
 
 ### `components/sun-kudos/`
 
-Sun* Kudos Live Board (MoMorph screen `MaZUn5xHXZ`). Static layout + light client interactivity;
-no backend. Mock data stands in for DB-sourced content (`mock-data.ts`, `mock-users.ts`).
+Sun* Kudos Live Board (MoMorph screen `MaZUn5xHXZ`) + Write Kudos modal (MoMorph screen
+`ihQ26W78P2`). No backend — all data is client-side; mock data stands in for DB-sourced content.
+
+#### State / context
 
 | File | Type | Purpose |
 |---|---|---|
-| `types.ts` | data | Shared TypeScript interfaces (`KudosPost`, `KudosUser`, `KudosStat`, etc.) |
+| `kudos-board-provider.tsx` | context | React context: kudos feed (seeded from `mock-data.ts`), `addKudos()` (optimistic prepend), modal open/close state; `useKudosBoard()` hook with read-only fallback outside provider |
+
+#### Shared atoms
+
+| File | Type | Purpose |
+|---|---|---|
+| `types.ts` | data | Shared TypeScript interfaces (`KudosPost` + `awardTitle`, `anonymous`, `anonymousName`; `KudosUser`, `KudosStat`, etc.) |
 | `mock-users.ts` | data | Mock user roster (names/avatars; DB-sourced placeholder) |
 | `mock-data.ts` | data | Mock kudos posts, stats, leaderboard rows |
 | `user-info-block.tsx` | presentational | Avatar + name + team badge |
@@ -157,8 +167,13 @@ no backend. Mock data stands in for DB-sourced content (`mock-data.ts`, `mock-us
 | `heart-button.tsx` | client | Like toggle with optimistic counter |
 | `copy-link-button.tsx` | client | Clipboard copy with transient "Copied" toast |
 | `section-heading.tsx` | presentational | Shared section title bar |
+
+#### Live Board sections
+
+| File | Type | Purpose |
+|---|---|---|
 | `kudos-banner.tsx` | presentational | Section A hero banner |
-| `kudos-input-row.tsx` | presentational | Section A compose-row mockup (non-functional) |
+| `kudos-input-row.tsx` | client | Section A pen-pill input (readOnly); opens Write Kudos modal on click/keyboard |
 | `highlight-filters.tsx` | client | Section B filter tabs (All / Most Liked / Most Recent / My Kudos) |
 | `highlight-kudos-card.tsx` | presentational | Section B single highlight card |
 | `highlight-carousel.tsx` | client | Section B carousel with prev/next navigation |
@@ -173,6 +188,25 @@ no backend. Mock data stands in for DB-sourced content (`mock-data.ts`, `mock-us
 | `kudos-stats-block.tsx` | presentational | Section D summary stat tiles |
 | `kudos-leaderboard.tsx` | presentational | Section D leaderboard table |
 | `kudos-sidebar.tsx` | presentational | Section D sidebar (stats + leaderboard) |
+
+#### Write Kudos modal (Viết Kudo)
+
+Opened from the pen-pill input. Validates form → calls `addKudos()` → closes modal.
+
+| File | Type | Purpose |
+|---|---|---|
+| `write-kudos-modal-host.tsx` | client | Bridges provider state to the modal; maps form values to a new `Kudos` on submit |
+| `write-kudos-modal.tsx` | client | Modal shell + form state |
+| `write-kudos-recipient-select.tsx` | client | Recipient picker (from mock users) |
+| `write-kudos-award-title-field.tsx` | presentational | Award title input (required; renders as card heading) |
+| `write-kudos-rich-text-area.tsx` | client | `contentEditable` editor: bold/italic/strikethrough/ordered-list/link/quote via `document.execCommand`; @mention autocomplete; 500-char counter; board stores plain text |
+| `write-kudos-hashtag-picker.tsx` | client | Hashtag multi-select, max 5 |
+| `write-kudos-image-uploader.tsx` | client | Image upload (jpg/png, client object URLs, max 5) |
+| `write-kudos-anonymous-checkbox.tsx` | presentational | Anonymous toggle |
+| `write-kudos-modal-footer.tsx` | presentational | Submit / cancel actions |
+| `write-kudos-icons.tsx` | data | SVG icons for the modal |
+
+Validation rules: recipient, awardTitle, content, and ≥ 1 hashtag are required.
 
 ---
 

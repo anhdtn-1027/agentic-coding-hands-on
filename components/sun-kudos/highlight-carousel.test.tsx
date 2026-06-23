@@ -14,6 +14,7 @@ const mockKudos: Kudos[] = [
     id: '1',
     sender: { id: '1', name: 'Alice', avatarUrl: '', department: 'Engineering', stars: 0, badge: '' },
     receiver: { id: '2', name: 'Bob', avatarUrl: '', department: 'Engineering', stars: 0, badge: '' },
+    awardTitle: 'Team Player',
     contentVi: 'Great work!',
     hashtags: ['#teamwork'],
     imageUrls: [],
@@ -26,6 +27,7 @@ const mockKudos: Kudos[] = [
     id: '2',
     sender: { id: '3', name: 'Charlie', avatarUrl: '', department: 'Product', stars: 0, badge: '' },
     receiver: { id: '4', name: 'David', avatarUrl: '', department: 'Product', stars: 0, badge: '' },
+    awardTitle: 'Innovator',
     contentVi: 'Amazing contribution',
     hashtags: ['#innovation'],
     imageUrls: [],
@@ -38,6 +40,7 @@ const mockKudos: Kudos[] = [
     id: '3',
     sender: { id: '5', name: 'Eve', avatarUrl: '', department: 'Support', stars: 0, badge: '' },
     receiver: { id: '6', name: 'Frank', avatarUrl: '', department: 'Support', stars: 0, badge: '' },
+    awardTitle: 'Helper',
     contentVi: 'Thank you!',
     hashtags: ['#support'],
     imageUrls: [],
@@ -404,6 +407,23 @@ describe('HighlightCarousel', () => {
         const updatedNextButton = updatedNextButtons[updatedNextButtons.length - 1];
         expect(updatedNextButton).toBeDisabled();
       });
+    });
+  });
+
+  describe('Centering (regression: slides must not be pushed off-screen)', () => {
+    it('positions the track with absolute left:50% and a pixel-based X offset', () => {
+      const { container } = renderWithI18n(<HighlightCarousel kudos={mockKudos} />);
+      // The sliding track is the parent of the 528px-wide cards.
+      const card = container.querySelector('[style*="width: 528"]');
+      const track = card?.parentElement as HTMLElement;
+      expect(track).toBeTruthy();
+      // Centering is anchored to the viewport (relative parent), not the track's own width.
+      expect(track.style.position).toBe('absolute');
+      expect(track.style.left).toBe('50%');
+      // X offset must be px-based (half a card). A track-relative `translateX(calc(50% ...))`
+      // resolves against the full track width (~4392px) and shoved pages 1-3 off-screen right.
+      expect(track.style.transform).toContain('translate(calc(-264px');
+      expect(track.style.transform).not.toContain('translateX(calc(50%');
     });
   });
 });

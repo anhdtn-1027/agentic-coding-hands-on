@@ -13,6 +13,8 @@ export interface Kudos {
   id: string;
   sender: KudosUser;
   receiver: KudosUser;
+  /** "Danh hiệu" — award title; shown as the Kudos heading. */
+  awardTitle: string;
   contentVi: string;
   hashtags: string[];
   imageUrls: string[];
@@ -20,6 +22,10 @@ export interface Kudos {
   likedByMe: boolean;
   isOwn: boolean;
   postedAt: string;
+  /** True when the sender chose to send anonymously. */
+  anonymous?: boolean;
+  /** Optional display name supplied when sending anonymously. */
+  anonymousName?: string;
 }
 
 export interface Hashtag {
