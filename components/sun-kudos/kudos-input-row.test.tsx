@@ -274,13 +274,15 @@ describe('KudosInputRow', () => {
   });
 
   describe('User interaction', () => {
-    it('allows typing in kudos input', async () => {
+    it('kudos pill is a read-only modal trigger (opens Write Kudo modal)', async () => {
       const user = userEvent.setup();
       renderWithI18n(<KudosInputRow />);
       const kudosInput = screen.getByPlaceholderText(/Hôm nay/);
 
-      await user.type(kudosInput, 'Test message');
-      expect(kudosInput).toHaveValue('Test message');
+      // The kudos pill no longer accepts free text — it opens the modal on activate.
+      expect(kudosInput).toHaveAttribute('readonly');
+      await user.click(kudosInput);
+      expect(kudosInput).toHaveValue('');
     });
 
     it('allows typing in search input', async () => {
@@ -292,17 +294,12 @@ describe('KudosInputRow', () => {
       expect(searchInput).toHaveValue('John Doe');
     });
 
-    it('inputs maintain separate values', async () => {
+    it('search input keeps its own value', async () => {
       const user = userEvent.setup();
       renderWithI18n(<KudosInputRow />);
-      const inputs = screen.getAllByRole('textbox');
-      const kudosInput = inputs[0];
-      const searchInput = inputs[1];
+      const searchInput = screen.getByPlaceholderText(/Tìm kiếm/);
 
-      await user.type(kudosInput, 'Kudos text');
       await user.type(searchInput, 'Search text');
-
-      expect(kudosInput).toHaveValue('Kudos text');
       expect(searchInput).toHaveValue('Search text');
     });
   });

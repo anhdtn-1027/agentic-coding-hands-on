@@ -1,5 +1,46 @@
 # Project Changelog
 
+## [0.5.0] — 2026-06-23
+
+### Sun* Kudos — Write Kudos modal (Viết Kudo)
+
+Adds the "Viết Kudo" compose modal (MoMorph screen `ihQ26W78P2`), opened from the Live Board
+pen-pill input. No backend — submit optimistically prepends the new Kudos to the All Kudos feed
+via client-side React context.
+
+#### Added
+
+- **`kudos-board-provider.tsx`** — React context owning the kudos feed (seeded from `mock-data.ts`),
+  `addKudos()` (optimistic prepend), and modal open/close state; `useKudosBoard()` hook with
+  read-only fallback when used outside a provider
+- **`write-kudos-modal.tsx`** + sub-components — full modal UI + form logic:
+  `write-kudos-recipient-select`, `write-kudos-award-title-field`, `write-kudos-rich-text-area`,
+  `write-kudos-hashtag-picker`, `write-kudos-image-uploader`, `write-kudos-anonymous-checkbox`,
+  `write-kudos-modal-footer`, `write-kudos-icons`
+- **`write-kudos-modal-host.tsx`** — bridges provider state to the modal; maps form values to a
+  new `Kudos` object on submit
+- **Rich-text editor** — lightweight `contentEditable` using `document.execCommand`
+  (bold / italic / strikethrough / ordered-list / link / quote) + @mention from mock users +
+  500-char counter. Board stores plain text (compose-time formatting not persisted)
+- **Validation** — recipient, awardTitle, content, and ≥ 1 hashtag required; hashtags and images
+  capped at 5 each; images jpg/png only (client-side object URLs)
+- **Data model** — `Kudos` type extended: `awardTitle` (required, rendered as card heading),
+  `anonymous`, `anonymousName`
+- **i18n** — `sunKudos.writeModal.*` keys added to `messages/en.json` + `messages/vi.json`
+
+#### Changed
+
+- `kudos-input-row.tsx` — pen-pill input now `readOnly`; opens the Write Kudos modal on click
+  and keyboard activation (was non-functional)
+
+#### Verification
+
+- `tsc` strict clean
+- `npm test` — 671 unit tests pass
+- `npm run test:e2e` — 19 E2E tests pass
+
+---
+
 ## [0.4.1] — 2026-06-16
 
 ### Sun* Kudos Live Board — test coverage (unit + E2E)

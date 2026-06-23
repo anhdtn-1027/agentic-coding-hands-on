@@ -1,3 +1,5 @@
+"use client";
+
 // mm:2940:13475 — C_All kudos section
 // Layout: flex-col gap 40px, width 1440px
 // C.1 header via SectionHeading
@@ -7,10 +9,11 @@
 import { useTranslations } from "next-intl";
 import { SectionHeading } from "./section-heading";
 import { KudosPostCard } from "./kudos-post-card";
-import { mockKudos } from "./mock-data";
+import { useKudosBoard } from "./kudos-board-provider";
 
 export function AllKudosSection() {
   const t = useTranslations("sunKudos");
+  const { kudos: mockKudos } = useKudosBoard();
 
   return (
     // mm:2940:13475 — C_All kudos, flex-col gap 40px, full width

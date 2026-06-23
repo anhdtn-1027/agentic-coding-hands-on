@@ -93,6 +93,22 @@ export function KudosPostCard({ kudos }: KudosPostCardProps) {
         {kudos.postedAt}
       </span>
 
+      {/* Award title (Danh hiệu) — shown as the Kudos heading */}
+      {kudos.awardTitle && (
+        <h3
+          style={{
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 700,
+            fontSize: 24,
+            lineHeight: "32px",
+            color: "#00101A",
+            margin: 0,
+          }}
+        >
+          {kudos.awardTitle}
+        </h3>
+      )}
+
       {/* mm:I3127:21871;256:5155 — C.3.5 Content max 5 lines with line-clamp */}
       <p
         style={{

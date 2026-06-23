@@ -11,6 +11,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useKudosBoard } from "./kudos-board-provider";
 
 // Inline pen icon (mm:I2940:13449;186:2759 — MM_MEDIA_Pen)
 // path from /public/sun-kudos-live-board/icon-pen.svg
@@ -63,6 +64,8 @@ interface PillFieldProps {
   placeholder: string;
   "aria-label": string;
   inputId: string;
+  /** When set, the pill acts as a button that opens an action (e.g. write modal). */
+  onActivate?: () => void;
 }
 
 function PillField({
@@ -70,6 +73,7 @@ function PillField({
   placeholder,
   "aria-label": ariaLabel,
   inputId,
+  onActivate,
 }: PillFieldProps) {
   const [focused, setFocused] = useState(false);
 
@@ -114,6 +118,16 @@ function PillField({
           type="text"
           placeholder={placeholder}
           aria-label={ariaLabel}
+          readOnly={!!onActivate}
+          onClick={onActivate}
+          // Open on click / keyboard activation — NOT on focus, so restoring focus
+          // to this trigger after the modal closes doesn't immediately reopen it.
+          onKeyDown={(e) => {
+            if (onActivate && (e.key === "Enter" || e.key === " ")) {
+              e.preventDefault();
+              onActivate();
+            }
+          }}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           style={{
@@ -139,6 +153,7 @@ function PillField({
 
 export function KudosInputRow() {
   const t = useTranslations("sunKudos");
+  const { openModal } = useKudosBoard();
 
   return (
     <>
@@ -180,6 +195,7 @@ export function KudosInputRow() {
               icon={<PenIcon />}
               placeholder={t("input.placeholder")}
               aria-label={t("input.placeholder")}
+              onActivate={openModal}
             />
           </div>
 
