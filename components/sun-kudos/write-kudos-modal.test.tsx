@@ -58,7 +58,8 @@ describe("WriteKudosModal", () => {
     expect(screen.getByText("Gửi lời cám ơn và ghi nhận đến đồng đội")).toBeInTheDocument();
     expect(screen.getByText("Người nhận")).toBeInTheDocument();
     expect(screen.getByText("Danh hiệu")).toBeInTheDocument();
-    expect(screen.getByText("Hashtag")).toBeInTheDocument();
+    // "Hashtag" appears as both the section label and the "+ Hashtag" button label.
+    expect(screen.getAllByText("Hashtag").length).toBeGreaterThan(0);
   });
 
   it("disables submit until required fields are filled (TC ID-48)", () => {

@@ -268,13 +268,13 @@ export function WriteKudosModal({
       {/* bg rgba(255,248,225,1) cream/ivory */}
       <style>{`
         .write-kudos-dialog {
-          padding: 24px 32px;
-          gap: 16px;
+          padding: 40px;
+          gap: 32px;
         }
         @media (max-width: 600px) {
           .write-kudos-dialog {
-            padding: 16px;
-            gap: 14px;
+            padding: 24px 16px;
+            gap: 20px;
           }
         }
       `}</style>
@@ -311,8 +311,8 @@ export function WriteKudosModal({
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 24,
-            lineHeight: "30px",
+            fontSize: 32,
+            lineHeight: "40px",
             letterSpacing: 0,
             color: "rgba(0, 16, 26, 1)",
             textAlign: "center",

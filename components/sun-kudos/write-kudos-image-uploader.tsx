@@ -47,20 +47,20 @@ function ImageTile({
     <div
       className="relative"
       style={{
-        width: 60,
-        height: 60,
+        width: 80,
+        height: 80,
         border: "1px solid #998C5F",
-        borderRadius: 14,
+        borderRadius: 18,
         background: "#FFF",
         flexShrink: 0,
       }}
     >
       {/* mm:I520:11647;662:9197;256:4717 — MM_MEDIA_Sample Image */}
-      {/* 60×60 border-radius 4px, border 1px #FFEA9E */}
+      {/* 80×80 border-radius 4px, border 1px #FFEA9E */}
       <div
         style={{
-          width: 60,
-          height: 60,
+          width: 80,
+          height: 80,
           borderRadius: 4,
           border: "1px solid #FFEA9E",
           overflow: "hidden",
@@ -72,7 +72,7 @@ function ImageTile({
           alt={image.alt ?? "Attached image"}
           fill
           style={{ objectFit: "cover" }}
-          sizes="60px"
+          sizes="80px"
         />
       </div>
 
@@ -130,7 +130,7 @@ export function ImageUploader({
     <div style={{ width: "100%" }}>
     <div
       className="flex flex-row items-center"
-      style={{ gap: 16, width: "100%", minHeight: 60, flexWrap: "wrap" }}
+      style={{ gap: 16, width: "100%", minHeight: 80, flexWrap: "wrap" }}
     >
       {/* mm:mms_F.1_Title — "Image" label (no asterisk in design) */}
       <div
@@ -141,8 +141,8 @@ export function ImageUploader({
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 18,
-            lineHeight: "24px",
+            fontSize: 22,
+            lineHeight: "28px",
             color: "rgba(0, 16, 26, 1)",
           }}
         >
@@ -180,7 +180,7 @@ export function ImageUploader({
             borderRadius: 8,
             background: "#FFF",
             padding: "4px 8px",
-            height: 40,
+            height: 48,
             cursor: "pointer",
             flexShrink: 0,
             transition: "background 0.15s ease",
@@ -197,21 +197,22 @@ export function ImageUploader({
           <span style={{ color: "rgba(153, 153, 153, 1)" }}>
             <IconPlus size={24} />
           </span>
-          {/* mm:I520:11647;662:9133;186:2760 — "Image\nTối đa 5" text */}
-          {/* Montserrat 700 11px letterSpacing 0.5px #999 */}
+          {/* mm:I520:11647;662:9133;186:2760 — label (bold) + "Tối đa 5" (light, smaller) */}
           <span
             style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontWeight: 700,
-              fontSize: 11,
-              lineHeight: "16px",
-              letterSpacing: "0.5px",
-              color: "rgba(153, 153, 153, 1)",
-              whiteSpace: "pre",
+              display: "flex",
+              flexDirection: "column",
               textAlign: "left",
+              color: "rgba(153, 153, 153, 1)",
+              fontWeight: 700,
             }}
           >
-            {`${t("imageLabel")}\n${t("imageMax", { max: maxCount })}`}
+            <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: 14, lineHeight: "18px", letterSpacing: "0.5px", color: "black", }}>
+              {t("imageLabel")}
+            </span>
+            <span style={{ fontFamily: "Montserrat, sans-serif",  fontSize: 10, lineHeight: "12px", letterSpacing: "0.5px" }}>
+              {t("imageMax", { max: maxCount })}
+            </span>
           </span>
         </button>
       )}

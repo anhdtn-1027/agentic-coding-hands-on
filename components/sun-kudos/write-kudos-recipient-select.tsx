@@ -44,13 +44,13 @@ export function RecipientSelect({
     // gap: 16px | flex-row | align-center | height 56px; stacks on mobile
     <div className="flex flex-col sm:flex-row sm:items-center" style={{ gap: 16, width: "100%" }}>
       {/* mm:I520:11647;520:9872 — mms_B.1_Title — "Người nhận" label + * */}
-      <div className="flex flex-row items-center shrink-0" style={{ gap: 2, width: 130 }}>
+      <div className="flex flex-row items-center shrink-0" style={{ gap: 2, width: 146 }}>
         <span
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 18,
-            lineHeight: "24px",
+            fontSize: 22,
+            lineHeight: "28px",
             letterSpacing: 0,
             color: "rgba(0, 16, 26, 1)",
             whiteSpace: "nowrap",
@@ -79,7 +79,7 @@ export function RecipientSelect({
             border: error ? "1px solid rgba(207, 19, 34, 1)" : "1px solid #998C5F",
             borderRadius: 8,
             background: "#FFF",
-            padding: "10px 16px",
+            padding: "16px 24px",
             gap: 8,
             cursor: "text",
           }}

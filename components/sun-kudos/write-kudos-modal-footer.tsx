@@ -50,9 +50,9 @@ export function ModalFooter({
           color: "rgba(0, 16, 26, 1)",
           flexShrink: 0,
           transition: "background 0.2s ease",
-          height: 48,
-          paddingTop: 12,
-          paddingBottom: 12,
+          height: 60,
+          paddingTop: 16,
+          paddingBottom: 16,
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLButtonElement).style.background =
@@ -69,8 +69,8 @@ export function ModalFooter({
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 18,
-            lineHeight: "24px",
+            fontSize: 22,
+            lineHeight: "28px",
             color: "rgba(0, 16, 26, 1)",
           }}
         >
@@ -92,9 +92,9 @@ export function ModalFooter({
         className="flex flex-row items-center justify-center"
         style={{
           flex: 1,
-          height: 48,
+          height: 60,
           gap: 8,
-          padding: 12,
+          padding: 16,
           borderRadius: 8,
           background: submitDisabled || isSubmitting
             ? "rgba(255, 234, 158, 0.5)"
@@ -123,8 +123,8 @@ export function ModalFooter({
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 18,
-            lineHeight: "24px",
+            fontSize: 22,
+            lineHeight: "28px",
             color: "rgba(0, 16, 26, 1)",
           }}
         >

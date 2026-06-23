@@ -4,13 +4,12 @@
 // mms_B-style Title component: "Danh hiệu" Montserrat 700 22px #00101A + * red
 // Input: border 1px #998C5F, bg #FFF, padding 16px 24px, border-radius 8px
 //   Placeholder: Montserrat 700 16px letterSpacing 0.15px #999
-//   Dropdown arrow icon right (same as recipient select)
+//   (Per spec: free-text input — NO dropdown arrow icon)
 // Helper text below input:
 //   "Ví dụ: Người truyền động lực cho tôi.\nDanh hiệu sẽ hiển thị làm tiêu đề Kudos của bạn."
 //   Montserrat 700 16px lineHeight 24px letterSpacing 0.15px color #999
 
 import { useTranslations } from "next-intl";
-import { IconDown } from "./write-kudos-icons";
 
 interface AwardTitleFieldProps {
   value: string;
@@ -29,13 +28,13 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
       <div className="flex flex-col sm:flex-row sm:items-center" style={{ gap: 16 }}>
         {/* mm:I520:11647;1688:10436 — Title component "Danh hiệu" + * */}
         {/* width 139px, gap 2px, flex-row align-center */}
-        <div className="flex flex-row items-center shrink-0" style={{ gap: 2, width: 130 }}>
+        <div className="flex flex-row items-center shrink-0" style={{ gap: 2, width: 139 }}>
           <span
             style={{
               fontFamily: "Montserrat, sans-serif",
               fontWeight: 700,
-              fontSize: 18,
-              lineHeight: "24px",
+              fontSize: 22,
+              lineHeight: "28px",
               letterSpacing: 0,
               color: "rgba(0, 16, 26, 1)",
               whiteSpace: "nowrap",
@@ -65,7 +64,7 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
             border: error ? "1px solid rgba(207, 19, 34, 1)" : "1px solid #998C5F",
             borderRadius: 8,
             background: "#FFF",
-            padding: "10px 16px",
+            padding: "16px 24px",
             gap: 8,
           }}
         >
@@ -91,10 +90,6 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
             }}
             className="award-title-input"
           />
-          {/* mm:I520:11647;1688:10437;186:2761 — IC dropdown arrow */}
-          <span style={{ color: "rgba(153, 140, 95, 1)", flexShrink: 0 }}>
-            <IconDown size={24} />
-          </span>
         </div>
       </div>
 
@@ -103,7 +98,7 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
       {/* On desktop: indent by label width + gap so it aligns under the input */}
       {/* On mobile: no indent (label stacks above) */}
       <style>{`
-        .award-title-helper { padding-left: ${130 + 16}px; }
+        .award-title-helper { padding-left: ${139 + 16}px; }
         @media (max-width: 639px) { .award-title-helper { padding-left: 0; } }
       `}</style>
       <div className="award-title-helper">
@@ -111,11 +106,11 @@ export function AwardTitleField({ value, onChange, error }: AwardTitleFieldProps
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 13,
-            lineHeight: "18px",
+            fontSize: 16,
+            lineHeight: "24px",
             letterSpacing: "0.15px",
             color: "rgba(153, 153, 153, 1)",
-            margin: "4px 0 0 0",
+            margin: "6px 0 0 0",
             whiteSpace: "pre-line",
           }}
         >

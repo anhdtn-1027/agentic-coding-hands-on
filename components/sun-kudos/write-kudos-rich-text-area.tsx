@@ -85,6 +85,9 @@ export function RichTextArea({
   const t = useTranslations("sunKudos.writeModal");
   const editorRef = useRef<HTMLDivElement>(null);
   const [charCount, setCharCount] = useState(0);
+  // JS-driven empty flag for the placeholder overlay — robust across browsers and the
+  // contentEditable `<br>`-after-blur quirk that breaks the CSS `:empty::before` approach.
+  const [isEmpty, setIsEmpty] = useState(true);
   const [mentionOpen, setMentionOpen] = useState(false);
   const [mentionQuery, setMentionQuery] = useState("");
 
@@ -93,6 +96,7 @@ export function RichTextArea({
     if (value === "" && editorRef.current && editorRef.current.innerHTML !== "") {
       editorRef.current.innerHTML = "";
       setCharCount(0);
+      setIsEmpty(true);
     }
   }, [value]);
 
@@ -101,6 +105,7 @@ export function RichTextArea({
     if (!el) return;
     const text = typeof el.innerText === "string" ? el.innerText : el.textContent ?? "";
     setCharCount(text.trim().length);
+    setIsEmpty(!el.textContent);
     onChange(el.innerHTML, text.trim() ? text : "");
   }, [onChange]);
 
@@ -203,6 +208,27 @@ export function RichTextArea({
 
       {/* mms_D — contentEditable editor */}
       <div className="relative" style={{ width: "100%" }}>
+        {/* Placeholder overlay — shown while empty (robust vs. CSS :empty::before) */}
+        {isEmpty && (
+          <span
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              top: 16,
+              left: 24,
+              right: 24,
+              pointerEvents: "none",
+              color: "rgba(153, 153, 153, 1)",
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 700,
+              fontSize: 16,
+              lineHeight: "24px",
+              letterSpacing: "0.15px",
+            }}
+          >
+            {t("contentPlaceholder")}
+          </span>
+        )}
         <div
           ref={editorRef}
           contentEditable
@@ -216,14 +242,14 @@ export function RichTextArea({
           onBlur={() => window.setTimeout(() => setMentionOpen(false), 150)}
           style={{
             width: "100%",
-            minHeight: 96,
-            height: 112,
+            minHeight: 120,
+            height: 200,
             overflowY: "auto",
             border: error ? "1px solid rgba(207, 19, 34, 1)" : "1px solid #998C5F",
             borderTop: "none",
             borderRadius: "0 0 8px 8px",
             background: "#FFF",
-            padding: "12px 16px",
+            padding: "16px 24px",
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
             fontSize: 16,
@@ -258,11 +284,6 @@ export function RichTextArea({
       </div>
 
       <style>{`
-        .write-kudos-editor:empty:before {
-          content: attr(data-placeholder);
-          color: rgba(153, 153, 153, 1);
-          pointer-events: none;
-        }
         .write-kudos-editor:focus { outline: 2px solid rgba(153, 140, 95, 0.4); outline-offset: -1px; }
         .write-kudos-editor blockquote { border-left: 3px solid #998C5F; margin: 4px 0; padding-left: 12px; color: #555; }
       `}</style>

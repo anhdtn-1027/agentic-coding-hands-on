@@ -2,20 +2,31 @@
 
 ## [0.5.2] — 2026-06-23
 
-### Fix — Write Kudos modal overflowed the screen
+### Fix — Write Kudos modal: restore design fidelity
+
+Reverts the earlier over-compaction (the modal had been shrunk below the design) and corrects
+several details against MoMorph screen `ihQ26W78P2`.
 
 #### Fixed
 
-- **`write-kudos-modal.tsx`** (+ field sub-components) — the modal was ~998px tall and overflowed a
-  720px-tall laptop viewport (capped at `maxHeight` with internal scroll, hiding the Hủy/Gửi footer).
-  Compacted the layout: section gap 32→16px, dialog padding 40→24px, content editor 200→112px,
-  title 32→24px, field labels 22→18px, image tiles 80→60px, footer buttons 60→48px, and tighter
-  input paddings. Modal now ~672px and fits without internal scroll.
+- **Modal height restored to design** — re-applied the authoritative MoMorph dimensions
+  (container `gap 32px` / `padding 40px`, editor 200px, title 32px, field labels 22px, image
+  tiles 80px, footer 60px; design height ~1012px). On short viewports the modal still caps at
+  `maxHeight: calc(100vh - 32px)` and scrolls internally — it never exceeds the screen.
+- **`write-kudos-award-title-field.tsx`** — removed the dropdown-arrow icon from the "Danh hiệu"
+  input; the spec defines it as a free-text field with no dropdown affordance.
+- **`write-kudos-rich-text-area.tsx`** — content placeholder ("Hãy gửi gắm lời cám ơn…") could
+  vanish: the CSS `:empty::before` approach breaks once the browser inserts a `<br>` on focus/blur
+  and doesn't paint in some browsers. Replaced with a JS-driven overlay shown while the editor is
+  empty (robust cross-browser).
+- **`write-kudos-hashtag-picker.tsx` / `write-kudos-image-uploader.tsx`** — the "+ Hashtag" /
+  "+ Image" buttons now render the label ("Hashtag" / "Image") bold and the "Tối đa 5" note in a
+  smaller, non-bold style, matching the design.
 
 #### Verification
 
-- Added E2E regression test asserting the dialog does not overflow at 1280×720 (footer visible)
 - `npm test` — 672 unit pass; `npm run test:e2e` (write-kudos) pass; `tsc` clean; build succeeds
+- Visually verified against the design at a tall viewport
 
 ## [0.5.1] — 2026-06-23
 

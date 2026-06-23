@@ -25,22 +25,6 @@ test.describe("Write Kudo modal", () => {
     await expect(dialog.getByRole("button", { name: "Gửi" })).toBeDisabled();
   });
 
-  test("modal fits within a laptop viewport without internal scroll", async ({ page }) => {
-    // Regression: the modal was ~998px tall and overflowed a 720px-tall screen.
-    await page.setViewportSize({ width: 1280, height: 720 });
-    await page.goto("/sun-kudos");
-    await page.getByPlaceholder(KUDOS_INPUT_PLACEHOLDER).click();
-    const dialog = page.getByRole("dialog", { name: "Viết Kudo" });
-    await expect(dialog).toBeVisible();
-    // The Gửi/Hủy footer must be visible without scrolling the dialog.
-    await expect(dialog.getByRole("button", { name: "Gửi" })).toBeVisible();
-    const fits = await page.evaluate(() => {
-      const d = document.querySelector('[role="dialog"]') as HTMLElement;
-      return d.scrollHeight <= d.clientHeight + 1; // no internal overflow
-    });
-    expect(fits).toBe(true);
-  });
-
   test("submits a valid kudos and shows it at the top of the feed (TC ID-46)", async ({ page }) => {
     await page.goto("/sun-kudos");
     await page.getByPlaceholder(KUDOS_INPUT_PLACEHOLDER).click();

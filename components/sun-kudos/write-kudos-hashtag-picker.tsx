@@ -108,19 +108,19 @@ export function HashtagPicker({
     // gap 16px | flex-row | align-items flex-start | height 48px (shrinks to content); stacks on mobile
     <div
       className="flex flex-col sm:flex-row sm:items-start"
-      style={{ gap: 16, width: "100%", minHeight: 40 }}
+      style={{ gap: 16, width: "100%", minHeight: 48 }}
     >
       {/* mm:mms_E.1_Title — "Hashtag" label + * */}
       <div
         className="flex flex-row items-center shrink-0"
-        style={{ gap: 2, paddingTop: 8 }}
+        style={{ gap: 2, paddingTop: 10 }}
       >
         <span
           style={{
             fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
-            fontSize: 18,
-            lineHeight: "24px",
+            fontSize: 22,
+            lineHeight: "28px",
             color: "rgba(0, 16, 26, 1)",
             whiteSpace: "nowrap",
           }}
@@ -164,7 +164,7 @@ export function HashtagPicker({
               borderRadius: 8,
               background: "#FFF",
               padding: "4px 8px",
-              height: 40,
+              height: 48,
               display: "flex",
               alignItems: "center",
               opacity: canAdd ? 1 : 0.6,
@@ -192,21 +192,22 @@ export function HashtagPicker({
                 <span style={{ color: "rgba(153, 153, 153, 1)" }}>
                   <IconPlus size={24} />
                 </span>
-                {/* mm:I520:11647;662:8911;186:2760 — "Hashtag\nTối đa 5" text */}
-                {/* Montserrat 700 11px letterSpacing 0.5px #999 */}
+                {/* mm:I520:11647;662:8911;186:2760 — label (bold) + "Tối đa 5" (light, smaller) */}
                 <span
                   style={{
-                    fontFamily: "Montserrat, sans-serif",
-                    fontWeight: 700,
-                    fontSize: 11,
-                    lineHeight: "16px",
-                    letterSpacing: "0.5px",
-                    color: "rgba(153, 153, 153, 1)",
-                    whiteSpace: "pre",
+                    display: "flex",
+                    flexDirection: "column",
                     textAlign: "left",
+                    fontWeight: 700,
+                    color: "rgba(153, 153, 153, 1)",
                   }}
                 >
-                  {`${t("hashtagLabel")}\n${t("hashtagMax", { max: maxCount })}`}
+                  <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: 14, lineHeight: "18px", letterSpacing: "0.5px", color: "black", }}>
+                    {t("hashtagLabel")}
+                  </span>
+                  <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: 10, lineHeight: "12px", letterSpacing: "0.5px", }}>
+                    {t("hashtagMax", { max: maxCount })}
+                  </span>
                 </span>
               </button>
 
