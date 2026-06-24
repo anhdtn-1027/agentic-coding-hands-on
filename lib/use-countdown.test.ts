@@ -184,6 +184,99 @@ describe('use-countdown', () => {
     });
   });
 
+  // ── Prelaunch TC value-matrix (MoMorph UUIDs 33fe648b / 1bd69f78 / 8dc4bba6) ──
+  // e2e cannot vary NEXT_PUBLIC_EVENT_DATETIME per-test (env is baked at build
+  // time). These unit tests exercise computeCountdown() directly at every
+  // boundary value specified in the TC matrix.
+  describe('prelaunch value-matrix (TC 33fe648b — days boundary)', () => {
+    const base = new Date('2025-06-01T00:00:00Z').getTime();
+
+    it('days = 0 → "00"', () => {
+      // Target in the future but less than 1 day away
+      const target = base + (23 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).days).toBe('00');
+    });
+
+    it('days = 9 → "09" (leading-zero)', () => {
+      const target = base + (9 * 24 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).days).toBe('09');
+    });
+
+    it('days = 10 → "10" (no leading-zero needed)', () => {
+      const target = base + (10 * 24 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).days).toBe('10');
+    });
+
+    it('days = 31 → "31"', () => {
+      const target = base + (31 * 24 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).days).toBe('31');
+    });
+  });
+
+  describe('prelaunch value-matrix (TC 1bd69f78 — hours boundary)', () => {
+    const base = new Date('2025-06-01T00:00:00Z').getTime();
+
+    it('hours = 0 → "00"', () => {
+      // Exactly 1 day future → hours component is 0
+      const target = base + (1 * 24 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).hours).toBe('00');
+    });
+
+    it('hours = 9 → "09" (leading-zero)', () => {
+      const target = base + (9 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).hours).toBe('09');
+    });
+
+    it('hours = 10 → "10"', () => {
+      const target = base + (10 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).hours).toBe('10');
+    });
+
+    it('hours = 23 → "23" (max valid hour)', () => {
+      const target = base + (23 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).hours).toBe('23');
+    });
+  });
+
+  describe('prelaunch value-matrix (TC 8dc4bba6 — minutes boundary)', () => {
+    const base = new Date('2025-06-01T00:00:00Z').getTime();
+
+    it('minutes = 0 → "00"', () => {
+      // Exact hour boundary → minutes component is 0
+      const target = base + (2 * 60 * 60 * 1000);
+      expect(computeCountdown(target, base).minutes).toBe('00');
+    });
+
+    it('minutes = 9 → "09" (leading-zero)', () => {
+      const target = base + (9 * 60 * 1000);
+      expect(computeCountdown(target, base).minutes).toBe('09');
+    });
+
+    it('minutes = 10 → "10"', () => {
+      const target = base + (10 * 60 * 1000);
+      expect(computeCountdown(target, base).minutes).toBe('10');
+    });
+
+    it('minutes = 59 → "59" (max valid minute)', () => {
+      const target = base + (59 * 60 * 1000);
+      expect(computeCountdown(target, base).minutes).toBe('59');
+    });
+  });
+
+  describe('prelaunch TC 840dd6be — real-time tick: computeCountdown decrements on advancing now', () => {
+    it('value decreases when "now" advances by 1 minute', () => {
+      const base = new Date('2025-06-01T00:00:00Z').getTime();
+      // Set target 2h30m ahead so minutes starts at 30 (not at hour boundary)
+      const target = base + (2 * 60 * 60 * 1000) + (30 * 60 * 1000);
+      const t0 = computeCountdown(target, base);           // minutes = "30"
+      const t1 = computeCountdown(target, base + 60_000);  // minutes = "29"
+      const m0 = parseInt(t0.minutes, 10);
+      const m1 = parseInt(t1.minutes, 10);
+      expect(m0).toBe(30);
+      expect(m1).toBe(m0 - 1);
+    });
+  });
+
   describe('integration: parseEventDatetime + computeCountdown', () => {
     it('handles missing env gracefully (TC ID-56)', () => {
       const parsed = parseEventDatetime(undefined);

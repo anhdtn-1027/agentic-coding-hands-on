@@ -1,5 +1,31 @@
 # Project Changelog
 
+## [0.5.4] — 2026-06-23
+
+### Test — E2E coverage for Homepage SAA, Award System, and Countdown Prelaunch
+
+No app behavior changed. Adds Playwright e2e coverage for three previously-untested routes,
+each mapped to MoMorph test-case IDs.
+
+#### Added
+
+- **`e2e/homepage.spec.ts`** — 30 tests covering public + authenticated/admin access, layout
+  sections, top navigation, i18n (vi/en), and countdown structural assertions
+  (MoMorph screen SAA Homepage).
+- **`e2e/awards-information.spec.ts`** — 15 tests: unauthenticated→`/login` auth guard, 6-item
+  scroll-spy sidebar nav, and kudos banner presence (MoMorph screen `zFYDgyj_pD`).
+- **`e2e/prelaunch.spec.ts`** — 9 tests: unauthenticated→`/login` auth guard, countdown block
+  structure, label text, and 2-digit format per `splitDigits()` contract
+  (MoMorph screen `8PJQswPZmU`).
+- **`e2e/support/routes.ts`** — shared route constants helper used across the new e2e specs.
+- **`lib/use-countdown.test.ts`** — extended with boundary/edge-case unit tests for the
+  `splitDigits()` / `computeCountdown()` value matrix.
+
+#### Coverage / Verification
+
+- 54 new tests added; all pass on a fresh server.
+- `npm test` — unit suite passes; `npm run test:e2e` — all e2e suites pass.
+
 ## [0.5.3] — 2026-06-23
 
 ### Test — Write Kudos coverage expanded to the MoMorph test-case matrix
