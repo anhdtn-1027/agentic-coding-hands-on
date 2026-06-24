@@ -8,6 +8,8 @@
 //   Middle: condition text (Montserrat 700 16px | #FFF | flex-1)
 //   Below both: description text (Montserrat 700 14px | #FFF | line-height 20px)
 
+import { useState } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { HeroTier } from "./the-le-data";
 
@@ -17,6 +19,8 @@ interface HeroTierRowProps {
 
 export function HeroTierRow({ tier }: HeroTierRowProps) {
   const t = useTranslations("theLe");
+  // Show the real pill image; fall back to the styled text pill if it fails to load.
+  const [imgFailed, setImgFailed] = useState(false);
 
   return (
     // mm:{tier.nodeId} — content frame (400px wide, flex-col, gap ~8px)
@@ -37,39 +41,59 @@ export function HeroTierRow({ tier }: HeroTierRowProps) {
           gap: 12,
         }}
       >
-        {/* mm:{tier.nodeId} — MM_MEDIA_* Hero pill badge */}
-        {/* 126×22px | border 0.579px solid #FFEA9E | border-radius 55.579px */}
-        {/* Actual Figma asset unavailable (media URL null) — styled placeholder */}
-        <div
-          aria-label={tier.label}
-          style={{
-            width: 126,
-            minWidth: 126,
-            height: 22,
-            borderRadius: 55.579,
-            border: "0.579px solid #FFEA9E",
-            background:
-              "linear-gradient(135deg, rgba(9,36,50,0.9) 0%, rgba(0,7,12,0.95) 100%)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-          }}
-        >
-          <span
+        {/* mm:{tier.nodeId} — Hero pill badge (126×22px). Real asset at
+            /the-le/{slug}.png; styled text pill is the onError fallback. */}
+        {imgFailed ? (
+          <div
+            aria-label={tier.label}
             style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontWeight: 700,
-              fontSize: 13,
-              lineHeight: "19px",
-              letterSpacing: "0.094px",
-              color: "#FFF",
-              whiteSpace: "nowrap",
+              width: 126,
+              minWidth: 126,
+              height: 22,
+              borderRadius: 55.579,
+              border: "0.579px solid #FFEA9E",
+              background:
+                "linear-gradient(135deg, rgba(9,36,50,0.9) 0%, rgba(0,7,12,0.95) 100%)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
             }}
           >
-            {tier.label}
-          </span>
-        </div>
+            <span
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 700,
+                fontSize: 13,
+                lineHeight: "19px",
+                letterSpacing: "0.094px",
+                color: "#FFF",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {tier.label}
+            </span>
+          </div>
+        ) : (
+          <div
+            style={{
+              position: "relative",
+              width: 126,
+              minWidth: 126,
+              height: 22,
+              flexShrink: 0,
+            }}
+          >
+            <Image
+              src={`/the-le/${tier.slug}.png`}
+              alt={tier.label}
+              fill
+              sizes="126px"
+              style={{ objectFit: "contain", objectPosition: "left center" }}
+              onError={() => setImgFailed(true)}
+            />
+          </div>
+        )}
 
         {/* Condition text — from i18n */}
         {/* Montserrat 700 16px | #FFF | line-height 24px | letterSpacing 0.5px */}
