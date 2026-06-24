@@ -19,8 +19,6 @@ import { HighlightKudosSection } from "@/components/sun-kudos/highlight-kudos-se
 import { SpotlightBoard } from "@/components/sun-kudos/spotlight-board";
 import { AllKudosSection } from "@/components/sun-kudos/all-kudos-section";
 import { KudosSidebar } from "@/components/sun-kudos/kudos-sidebar";
-import { KudosBoardProvider } from "@/components/sun-kudos/kudos-board-provider";
-import { WriteKudosModalHost } from "@/components/sun-kudos/write-kudos-modal-host";
 
 export default async function SunKudosPage({
   params,
@@ -31,7 +29,6 @@ export default async function SunKudosPage({
   setRequestLocale(locale);
 
   return (
-    <KudosBoardProvider>
     <div className="flex flex-col min-h-screen" style={{ background: "#00101A" }}>
       {/* ── Sticky header ──────────────────────────────────────────────────── */}
       <SiteHeader variant="home" />
@@ -92,9 +89,6 @@ export default async function SunKudosPage({
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
       <SiteFooter variant="home" />
 
-      {/* ── Write Kudos Modal (opened from the input row) ──────────────────── */}
-      <WriteKudosModalHost />
     </div>
-    </KudosBoardProvider>
   );
 }

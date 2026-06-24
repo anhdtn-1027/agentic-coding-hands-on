@@ -3,6 +3,7 @@
 // Client component: uses countdown hook (client-side timer) and wires
 // all homepage body sections with i18n strings + real props.
 
+import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCountdown } from "@/lib/use-countdown";
@@ -13,6 +14,8 @@ import { RootFurtherContent } from "@/components/homepage/root-further-content";
 import { AwardsGrid } from "@/components/homepage/awards-grid";
 import { KudosBlock } from "@/components/homepage/kudos-block";
 import { WidgetButton } from "@/components/homepage/widget-button";
+import { TheLeModal } from "@/components/the-le";
+import { useKudosBoard } from "@/components/sun-kudos/kudos-board-provider";
 
 interface HomepageClientProps {
   userRole?: "admin" | "user";
@@ -24,6 +27,8 @@ export function HomepageClient({
   userName,
 }: HomepageClientProps) {
   const t = useTranslations("homepage");
+  const { openModal } = useKudosBoard();
+  const [rulesOpen, setRulesOpen] = useState(false);
   // Live countdown from EVENT_DATETIME env var (TC ID-39..43, 56, 57, 60)
   const { days, hours, minutes, showComingSoon } = useCountdown();
 
@@ -99,10 +104,23 @@ export function HomepageClient({
         <KudosBlock detailHref="/sun-kudos" />
 
         {/* Widget floating button (fixed bottom-right) */}
-        <WidgetButton onClick={() => {/* no-op per spec */}} />
+        <WidgetButton
+          onOpenRules={() => setRulesOpen(true)}
+          onWriteKudos={() => openModal()}
+        />
       </main>
 
       <SiteFooter variant="home" />
+
+      {/* Thể lệ rules panel — open state is local to homepage */}
+      <TheLeModal
+        open={rulesOpen}
+        onClose={() => setRulesOpen(false)}
+        onWriteKudos={() => {
+          setRulesOpen(false);
+          openModal();
+        }}
+      />
     </div>
   );
 }

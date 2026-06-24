@@ -1,5 +1,39 @@
 # Project Changelog
 
+## [0.5.5] — 2026-06-24
+
+### Feature — Thể lệ (SAA Rules) FAB menu on homepage
+
+Adds a floating action button (FAB) quick-action menu to the homepage widget, replacing the
+single widget button with an expandable three-item menu.
+
+#### Added
+
+- **`components/the-le/`** — new component tree:
+  - `the-le-modal.tsx` — side-panel modal describing Hero badges, 6 collectible icons, and
+    Kudos Quoc Dan rules; Hero/collectible badge images served from `public/the-le/`
+    (placeholders — PNG art not yet exported from Figma)
+  - `the-le-fab-menu.tsx` — expandable FAB with three actions: **Thể lệ** (opens rules modal),
+    **Viết KUDOS** (opens Write Kudos modal), **Hủy** (collapse)
+- **`i18n` — `theLe` namespace** — added to `messages/vi.json` and `messages/en.json`
+- **`e2e/the-le.spec.ts`** — 5 Playwright tests covering FAB expand/collapse, Thể lệ modal
+  open/close, Viết KUDOS action, and Hủy collapse
+
+#### Changed
+
+- **`app/[locale]/layout.tsx`** — `KudosBoardProvider` and `WriteKudosModalHost` lifted from
+  the Sun Kudos page to the root layout so the Write Kudos modal opens globally from any page
+
+#### Known follow-up
+
+- Hero badge and 6 collectible icon PNG assets not yet exported from Figma; placeholder images
+  at `public/the-le/` are standing in until assets are available
+
+#### Verification
+
+- `npm test` — 702 unit tests pass
+- `npm run test:e2e` — 99 pass / 1 skip
+
 ## [0.5.4] — 2026-06-23
 
 ### Test — E2E coverage for Homepage SAA, Award System, and Countdown Prelaunch

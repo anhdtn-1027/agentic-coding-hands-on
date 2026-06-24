@@ -46,7 +46,8 @@ export function CtaButtons({
           {aboutAwardsLabel}
         </span>
         {/* mm:I2167:9063;186:1766 — up-arrow icon (chevron right) */}
-        <svg
+        <img src="homepage/arrow-up.png" alt="Arrow icon" width="24" height="24" />
+        {/* <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -62,7 +63,7 @@ export function CtaButtons({
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </svg>
+        </svg> */}
       </a>
 
       {/* mm:2167:9064 — outline/glass secondary button */}
@@ -94,7 +95,8 @@ export function CtaButtons({
           {aboutKudosLabel}
         </span>
         {/* mm:I2167:9064;186:2761 — up-arrow icon */}
-        <svg
+        <img src="homepage/arrow-up-white.png" alt="Arrow icon" width="24" height="24" />
+        {/* <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -110,7 +112,7 @@ export function CtaButtons({
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </svg>
+        </svg> */}
       </a>
     </div>
   );
