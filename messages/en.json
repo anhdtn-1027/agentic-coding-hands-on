@@ -50,6 +50,11 @@
     "eventTimeLabel": "Time:",
     "eventVenueLabel": "Venue:",
     "widgetAria": "Write Kudos / SAA rules",
+    "widgetRulesLabel": "Thể lệ",
+    "widgetWriteKudosLabel": "Viết KUDOS",
+    "widgetRulesAria": "View SAA rules",
+    "widgetWriteKudosAria": "Write KUDOS",
+    "widgetCancelAria": "Close menu",
     "rootFurther": {
       "paragraph1": "In the face of the AI era's whirlwind of change and the ever-rising demands of customers, Sun* has chosen a strategy of diversifying its capabilities — striving not only to become the elite of its own field, but also to reach for a higher goal, where every Sunner is a “problem-solver”: an expert at resolving every issue and finding answers to every challenge facing our projects, our customers and society. Inspired by this diversity of capability, the ability to grow flexibly, and the spirit of digging deeper to break through in the AI era, “Root Further” was chosen as the official theme of the Sun* Annual Awards 2025. Beyond its surface meaning, “Root Further” is the journey on which we never stop reaching farther and rooting deeper — touching the hidden “geological” layers so we can keep surviving, rising, and nurturing the Sun* people's ever-burning passion for creating value. Like a root system that keeps driving deep into the earth, powerfully weaving through each layer of “sediment” to absorb what is most precious, Sun* people are likewise “absorbing” nutrients from the era and the challenges of the market to renew themselves every day, expand their capabilities, and firmly “take root” in the AI era — a wholly new “geological” layer, complex and unpredictable, yet brimming with boundless potential and opportunity.",
       "quoteLine": "“A tree with deep roots fears no storm”",
@@ -160,6 +165,44 @@
       "openGift": "Open gift",
       "leaderboardRankUp": "10 SUNNERS WITH NEWEST RANK-UPS",
       "leaderboardGifts": "10 SUNNERS WITH NEWEST GIFTS"
+    }
+  },
+  "theLe": {
+    "title": "Rules",
+    "recipientHeading": "KUDOS RECIPIENTS: HERO BADGES FOR POSITIVE IMPACT",
+    "recipientIntro": "Based on the number of teammates who send you Kudos, you will earn the corresponding Hero Badge, displayed directly next to your profile name.",
+    "senderHeading": "KUDOS SENDERS: COLLECT ALL 6 ICONS AND WIN A MYSTERY GIFT",
+    "senderIntro": "Every Kudos you send will be published on the system and receive ❤️ from the Sunner community. For every 5 ❤️ received, you will unlock 1 Secret Box with the chance to receive one of 6 exclusive SAA icons.",
+    "secretBoxOutcome": "Sunners who collect all 6 icons will receive a mystery gift from SAA 2025.",
+    "kudosQuocDanHeading": "KUDOS QUỐC DÂN",
+    "kudosQuocDanBody": "The 5 Kudos that receive the most ❤️ across all of Sun* will officially become Kudos Quốc Dân and be awarded a special gift from SAA 2025: Root Further.",
+    "closeBtn": "Close",
+    "writeKudosBtn": "Write KUDOS",
+    "heroTiers": {
+      "newHero": {
+        "condition": "1–4 people send you Kudos",
+        "description": "The journey of spreading goodness begins — the first words of thanks and recognition have found their way to you."
+      },
+      "risingHero": {
+        "condition": "5–9 people send you Kudos",
+        "description": "Your image is growing in the hearts of your teammates through your kindness and dedication."
+      },
+      "superHero": {
+        "condition": "10–20 people send you Kudos",
+        "description": "You have become a trusted and beloved symbol — someone who is always ready to help and is remembered by many teammates."
+      },
+      "legendHero": {
+        "condition": "More than 20 people send you Kudos",
+        "description": "You have become a legend — someone who leaves an unforgettable mark on the team through your heart and actions."
+      }
+    },
+    "badges": {
+      "revival": "REVIVAL",
+      "touchOfLight": "TOUCH OF LIGHT",
+      "stayGold": "STAY GOLD",
+      "flowToHorizon": "FLOW TO HORIZON",
+      "beyondTheBoundary": "BEYOND THE BOUNDARY",
+      "rootFurther": "ROOT FURTHER"
     }
   },
   "awardSystem": {

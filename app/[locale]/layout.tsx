@@ -4,6 +4,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { KudosBoardProvider } from "@/components/sun-kudos/kudos-board-provider";
+import { WriteKudosModalHost } from "@/components/sun-kudos/write-kudos-modal-host";
 import "@/app/globals.css";
 
 // Primary brand font — Montserrat (Latin + Vietnamese subsets)
@@ -60,7 +62,10 @@ export default async function LocaleLayout({
         style={{ background: "#00101A", color: "#FFFFFF" }}
       >
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <KudosBoardProvider>
+            {children}
+            <WriteKudosModalHost />
+          </KudosBoardProvider>
         </NextIntlClientProvider>
       </body>
     </html>
